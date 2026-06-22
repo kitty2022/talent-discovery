@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900">
+  <defs>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.04"/>
+    </filter>
+  </defs>
+
+  <rect width="1440" height="900" fill="rgba(249,250,251,0.5)"/>
+
+  <!-- Navbar -->
+  <rect x="0" y="0" width="1440" height="64" fill="#fff"/>
+  <rect x="0" y="64" width="1440" height="1" fill="#e2e8f0"/>
+  <polyline points="30,32 40,22 40,42" fill="none" stroke="#94a3b8" stroke-width="2"/>
+  <rect x="50" y="22" width="24" height="24" rx="4" fill="none" stroke="#6366f1" stroke-width="2"/>
+  <text x="82" y="37" font-size="16" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">我的报告</text>
+  <text x="1240" y="37" font-size="14" font-weight="500" fill="#6366f1" font-family="system-ui, sans-serif">+ 生成新报告</text>
+
+  <!-- Reports List -->
+  <!-- Report 1 -->
+  <rect x="100" y="100" width="1240" height="100" rx="16" fill="#fff" filter="url(#shadow)"/>
+  <rect x="100" y="100" width="1240" height="100" rx="16" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="130" y="140" font-size="16" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">张三 · 综合天赋分析报告</text>
+  <text x="130" y="165" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">基于八字命理、MBTI、霍兰德测评的综合分析，你的天赋优势在于...</text>
+  <text x="130" y="185" font-size="12" fill="#94a3b8" font-family="system-ui, sans-serif">2026年6月15日 14:30</text>
+  <polyline points="1290,142 1300,150 1310,142" fill="none" stroke="#d1d5db" stroke-width="2"/>
+  <text x="1320" y="152" font-size="14" fill="#94a3b8" font-family="system-ui, sans-serif">🗑</text>
+
+  <!-- Report 2 -->
+  <rect x="100" y="220" width="1240" height="100" rx="16" fill="#fff" filter="url(#shadow)"/>
+  <rect x="100" y="220" width="1240" height="100" rx="16" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="130" y="260" font-size="16" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">张三 · 天赋潜能分析报告</text>
+  <text x="130" y="285" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">综合五大测评维度，你的核心天赋领域在社交沟通与创新思维...</text>
+  <text x="130" y="305" font-size="12" fill="#94a3b8" font-family="system-ui, sans-serif">2026年6月10日 09:15</text>
+  <polyline points="1290,262 1300,270 1310,262" fill="none" stroke="#d1d5db" stroke-width="2"/>
+  <text x="1320" y="272" font-size="14" fill="#94a3b8" font-family="system-ui, sans-serif">🗑</text>
+
+  <!-- Report 3 -->
+  <rect x="100" y="340" width="1240" height="100" rx="16" fill="#fff" filter="url(#shadow)"/>
+  <rect x="100" y="340" width="1240" height="100" rx="16" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="130" y="380" font-size="16" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">张三 · 职业发展指引报告</text>
+  <text x="130" y="405" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">结合霍兰德职业测评与天职分析，建议关注教育、咨询领域...</text>
+  <text x="130" y="425" font-size="12" fill="#94a3b8" font-family="system-ui, sans-serif">2026年6月5日 16:45</text>
+  <polyline points="1290,382 1300,390 1310,382" fill="none" stroke="#d1d5db" stroke-width="2"/>
+  <text x="1320" y="392" font-size="14" fill="#94a3b8" font-family="system-ui, sans-serif">🗑</text>
+</svg>

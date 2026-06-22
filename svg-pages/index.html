@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>天赋星鉴 · SVG 页面全景</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: linear-gradient(135deg, #fef9f0 0%, #f0f4ff 50%, #fdf2f8 100%);
+      min-height: 100vh;
+      color: #1e293b;
+    }
+    .header {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #e2e8f0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #6366f1, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header .subtitle {
+      font-size: 14px;
+      color: #64748b;
+      -webkit-text-fill-color: #64748b;
+    }
+    .stats {
+      font-size: 14px;
+      color: #64748b;
+      background: #f1f5f9;
+      padding: 6px 16px;
+      border-radius: 20px;
+    }
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 30px 40px;
+    }
+    .page-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+    }
+    .page-card {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      cursor: pointer;
+    }
+    .page-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(99,102,241,0.12);
+      border-color: #6366f1;
+    }
+    .page-card .preview {
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      background: #f8fafc;
+      position: relative;
+    }
+    .page-card .preview svg {
+      width: 100%;
+      height: auto;
+      transform-origin: top center;
+      transition: transform 0.3s;
+    }
+    .page-card:hover .preview svg {
+      transform: scale(1.05);
+    }
+    .page-card .info {
+      padding: 16px 20px;
+    }
+    .page-card .info h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .page-card .info p {
+      font-size: 13px;
+      color: #64748b;
+    }
+    .page-card .info .route {
+      font-size: 12px;
+      color: #94a3b8;
+      font-family: monospace;
+      margin-top: 6px;
+      background: #f1f5f9;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    .page-card .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 500;
+      margin-top: 8px;
+    }
+    .badge-auth { background: #e0e7ff; color: #4338ca; }
+    .badge-public { background: #dbeafe; color: #1d4ed8; }
+    .badge-protected { background: #fef3c7; color: #b45309; }
+    .badge-assessment { background: #f3e8ff; color: #7c3aed; }
+    .badge-report { background: #fce7f3; color: #be123c; }
+    .badge-shared { background: #d1fae5; color: #047857; }
+
+    /* Full screen viewer */
+    .viewer-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 1000;
+      backdrop-filter: blur(8px);
+      overflow: auto;
+      padding: 40px;
+    }
+    .viewer-overlay.active { display: flex; align-items: center; justify-content: center; }
+    .viewer-content {
+      max-width: 90vw;
+      max-height: 90vh;
+      position: relative;
+    }
+    .viewer-content svg {
+      width: 100%;
+      height: auto;
+      max-height: 85vh;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .viewer-close {
+      position: fixed;
+      top: 20px;
+      right: 30px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .viewer-close:hover { background: rgba(255,255,255,0.3); }
+    .viewer-title {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      font-size: 16px;
+      background: rgba(0,0,0,0.5);
+      padding: 10px 24px;
+      border-radius: 24px;
+      backdrop-filter: blur(4px);
+    }
+    @media (max-width: 768px) {
+      .container { padding: 16px; }
+      .page-grid { grid-template-columns: 1fr; }
+      .header { padding: 12px 16px; flex-direction: column; gap: 8px; }
+      .viewer-overlay { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>
+      ✨ 天赋星鉴
+      <span class="subtitle">SVG 页面全景</span>
+    </h1>
+    <span class="stats">共 14 个页面 · 覆盖全功能</span>
+  </div>
+
+  <div class="container">
+    <div class="page-grid" id="pageGrid"></div>
+  </div>
+
+  <div class="viewer-overlay" id="viewer" onclick="closeViewer(event)">
+    <div class="viewer-content" id="viewerContent"></div>
+    <button class="viewer-close" onclick="closeViewer()">✕</button>
+    <div class="viewer-title" id="viewerTitle"></div>
+  </div>
+
+  <script>
+    const pages = [
+      { file: '01-home.svg', title: '首页', desc: '品牌展示与引导页，含Hero、五大模块、三步流程', route: '/', badge: 'public', badgeClass: 'badge-public' },
+      { file: '02-login.svg', title: '登录', desc: '邮箱密码登录，支持跳转注册与忘记密码', route: '/auth/login', badge: 'auth', badgeClass: 'badge-auth' },
+      { file: '03-register.svg', title: '注册', desc: '昵称/邮箱/密码注册，注册后自动登录跳转', route: '/auth/register', badge: 'auth', badgeClass: 'badge-auth' },
+      { file: '04-forgot-password.svg', title: '忘记密码', desc: '输入邮箱获取重置链接，开发环境直接显示链接', route: '/auth/forgot-password', badge: 'auth', badgeClass: 'badge-auth' },
+      { file: '05-reset-password.svg', title: '重置密码', desc: '新密码+确认密码，Token验证后重置', route: '/auth/reset-password', badge: 'auth', badgeClass: 'badge-auth' },
+      { file: '06-dashboard.svg', title: '仪表盘', desc: '测评进度条、4个测评模块入口、报告入口', route: '/dashboard', badge: 'protected', badgeClass: 'badge-protected' },
+      { file: '07-bazi-form.svg', title: '八字排盘 · 表单', desc: '出生日期、时辰、性别输入，一键排盘', route: '/assessments/bazi', badge: 'assessment', badgeClass: 'badge-assessment' },
+      { file: '08-bazi-result.svg', title: '八字排盘 · 结果', desc: '四柱、日主、五运六气、五行分布、用神忌神、大运', route: '/assessments/bazi', badge: 'assessment', badgeClass: 'badge-assessment' },
+      { file: '09-mbti.svg', title: 'MBTI 人格测评', desc: '15题A/B选择，结果展示类型+四维条形图', route: '/assessments/mbti', badge: 'assessment', badgeClass: 'badge-assessment' },
+      { file: '10-holland.svg', title: '霍兰德职业测评', desc: '15题1-5分评分，结果展示三码+六维条形图+推荐职业', route: '/assessments/holland', badge: 'assessment', badgeClass: 'badge-assessment' },
+      { file: '11-tianzhi.svg', title: '天职测评', desc: '15题1-5分评分，展示综合推荐分析文字', route: '/assessments/tianzhi', badge: 'assessment', badgeClass: 'badge-assessment' },
+      { file: '12-reports-list.svg', title: '报告列表', desc: '已生成报告列表，含生成新报告、删除功能', route: '/reports', badge: 'report', badgeClass: 'badge-report' },
+      { file: '13-report-detail.svg', title: '报告详情', desc: 'Tab切换各维度分析，含五行圆图、大运时间线、分享导出', route: '/reports/[id]', badge: 'report', badgeClass: 'badge-report' },
+      { file: '14-shared-report.svg', title: '分享报告', desc: '公开分享页，含霍兰德柱状图、CTA注册引导', route: '/shared/[token]', badge: 'shared', badgeClass: 'badge-shared' },
+    ];
+
+    const grid = document.getElementById('pageGrid');
+    const viewer = document.getElementById('viewer');
+    const viewerContent = document.getElementById('viewerContent');
+    const viewerTitle = document.getElementById('viewerTitle');
+
+    pages.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'page-card';
+      card.innerHTML = `
+        <div class="preview">
+          <object data="${p.file}" type="image/svg+xml" style="width:100%;height:100%;pointer-events:none;">
+            <img src="${p.file}" style="width:100%;height:auto;" alt="${p.title}">
+          </object>
+        </div>
+        <div class="info">
+          <h3>${p.title}</h3>
+          <p>${p.desc}</p>
+          <span class="route">${p.route}</span>
+          <span class="badge ${p.badgeClass}">${p.badge}</span>
+        </div>
+      `;
+      card.onclick = () => openViewer(p);
+      grid.appendChild(card);
+    });
+
+    function openViewer(p) {
+      viewerContent.innerHTML = `<object data="${p.file}" type="image/svg+xml" style="width:100%;height:auto;">加载中...</object>`;
+      viewerTitle.textContent = `${p.title} · ${p.route}`;
+      viewer.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeViewer(e) {
+      if (e && e.target !== e.currentTarget) return;
+      viewer.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeViewer();
+    });
+  </script>
+</body>
+</html>

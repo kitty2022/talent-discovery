@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1150" width="1440" height="1150">
+  <defs>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.04"/>
+    </filter>
+  </defs>
+
+  <rect width="1440" height="1150" fill="rgba(249,250,251,0.5)"/>
+
+  <!-- Navbar -->
+  <rect x="0" y="0" width="1440" height="64" fill="#fff"/>
+  <rect x="0" y="64" width="1440" height="1" fill="#e2e8f0"/>
+  <polyline points="30,32 40,22 40,42" fill="none" stroke="#94a3b8" stroke-width="2"/>
+  <text x="50" y="37" font-size="14" fill="#e11d48">📊</text>
+  <text x="74" y="37" font-size="16" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">霍兰德职业测评</text>
+
+  <!-- Questionnaire Card (quiz mode) -->
+  <rect x="320" y="100" width="800" height="360" rx="16" fill="#fff" filter="url(#shadow)"/>
+  <rect x="320" y="100" width="800" height="360" rx="16" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Progress -->
+  <rect x="350" y="130" width="740" height="6" rx="3" fill="#f1f5f9"/>
+  <rect x="350" y="130" width="370" height="6" rx="3" fill="#e11d48"/>
+  <text x="1030" y="128" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">5/15</text>
+
+  <!-- Question -->
+  <text x="350" y="180" font-size="16" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">我喜欢参与团队合作完成项目</text>
+  <text x="350" y="210" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">请选择你的认可程度：</text>
+
+  <!-- Likert Scale -->
+  <!-- 1 -->
+  <circle cx="440" cy="280" r="24" fill="#f1f5f9"/>
+  <text x="440" y="285" font-size="16" fill="#64748b" text-anchor="middle" font-family="system-ui, sans-serif">1</text>
+  <!-- 2 -->
+  <circle cx="570" cy="280" r="24" fill="#f1f5f9"/>
+  <text x="570" y="285" font-size="16" fill="#64748b" text-anchor="middle" font-family="system-ui, sans-serif">2</text>
+  <!-- 3 (selected) -->
+  <circle cx="700" cy="280" r="28" fill="#e11d48" filter="url(#shadow)"/>
+  <text x="700" y="286" font-size="18" font-weight="700" fill="#fff" text-anchor="middle" font-family="system-ui, sans-serif">3</text>
+  <!-- 4 -->
+  <circle cx="830" cy="280" r="24" fill="#f1f5f9"/>
+  <text x="830" y="285" font-size="16" fill="#64748b" text-anchor="middle" font-family="system-ui, sans-serif">4</text>
+  <!-- 5 -->
+  <circle cx="960" cy="280" r="24" fill="#f1f5f9"/>
+  <text x="960" y="285" font-size="16" fill="#64748b" text-anchor="middle" font-family="system-ui, sans-serif">5</text>
+
+  <text x="350" y="325" font-size="12" fill="#94a3b8" font-family="system-ui, sans-serif">不同意</text>
+  <text x="1040" y="325" font-size="12" fill="#94a3b8" font-family="system-ui, sans-serif">同意</text>
+
+  <!-- Nav buttons -->
+  <rect x="350" y="360" width="100" height="40" rx="10" fill="#f1f5f9"/>
+  <text x="380" y="386" font-size="14" fill="#64748b" font-family="system-ui, sans-serif">上一题</text>
+  <rect x="990" y="360" width="100" height="40" rx="10" fill="#e11d48"/>
+  <text x="1015" y="386" font-size="14" font-weight="500" fill="#fff" font-family="system-ui, sans-serif">下一题</text>
+
+  <!-- Result Preview -->
+  <rect x="200" y="500" width="1040" height="600" rx="16" fill="#fff" filter="url(#shadow)"/>
+  <rect x="200" y="500" width="1040" height="600" rx="16" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+
+  <rect x="720" y="530" r="40" width="80" height="80" rx="40" fill="#ffe4e6"/>
+  <text x="720" y="575" font-size="36" fill="#e11d48" text-anchor="middle">📊</text>
+
+  <text x="500" y="640" font-size="22" font-weight="700" fill="#1e293b" font-family="system-ui, sans-serif" text-anchor="middle">霍兰德职业代码</text>
+  <text x="720" y="695" font-size="48" font-weight="700" fill="#e11d48" font-family="system-ui, sans-serif" text-anchor="middle">SEA</text>
+
+  <!-- Dimension bars -->
+  <!-- R -->
+  <text x="280" y="740" font-size="14" fill="#1e293b" font-family="system-ui, sans-serif">现实型 R</text>
+  <rect x="380" y="730" width="700" height="20" rx="10" fill="#f1f5f9"/>
+  <rect x="380" y="730" width="140" height="20" rx="10" fill="#10b981"/>
+  <text x="1100" y="745" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">6分</text>
+  <!-- I -->
+  <text x="280" y="780" font-size="14" fill="#1e293b" font-family="system-ui, sans-serif">研究型 I</text>
+  <rect x="380" y="770" width="700" height="20" rx="10" fill="#f1f5f9"/>
+  <rect x="380" y="770" width="250" height="20" rx="10" fill="#3b82f6"/>
+  <text x="1100" y="785" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">11分</text>
+  <!-- A -->
+  <text x="280" y="820" font-size="14" fill="#1e293b" font-family="system-ui, sans-serif">艺术型 A</text>
+  <rect x="380" y="810" width="700" height="20" rx="10" fill="#f1f5f9"/>
+  <rect x="380" y="810" width="340" height="20" rx="10" fill="#f59e0b"/>
+  <text x="1100" y="825" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">15分</text>
+  <!-- S -->
+  <text x="280" y="860" font-size="14" fill="#1e293b" font-family="system-ui, sans-serif">社会型 S</text>
+  <rect x="380" y="850" width="700" height="20" rx="10" fill="#f1f5f9"/>
+  <rect x="380" y="850" width="370" height="20" rx="10" fill="#ec4899"/>
+  <text x="1100" y="865" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">16分</text>
+  <!-- E -->
+  <text x="280" y="900" font-size="14" fill="#1e293b" font-family="system-ui, sans-serif">企业型 E</text>
+  <rect x="380" y="890" width="700" height="20" rx="10" fill="#f1f5f9"/>
+  <rect x="380" y="890" width="300" height="20" rx="10" fill="#8b5cf6"/>
+  <text x="1100" y="905" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">13分</text>
+  <!-- C -->
+  <text x="280" y="940" font-size="14" fill="#1e293b" font-family="system-ui, sans-serif">常规型 C</text>
+  <rect x="380" y="930" width="700" height="20" rx="10" fill="#f1f5f9"/>
+  <rect x="380" y="930" width="210" height="20" rx="10" fill="#6b7280"/>
+  <text x="1100" y="945" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">9分</text>
+
+  <!-- Career tags -->
+  <text x="280" y="990" font-size="15" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">推荐职业方向</text>
+  <rect x="280" y="1005" width="80" height="30" rx="8" fill="#fff1f2"/>
+  <text x="295" y="1025" font-size="13" fill="#be123c" font-family="system-ui, sans-serif">心理咨询</text>
+  <rect x="370" y="1005" width="80" height="30" rx="8" fill="#fff1f2"/>
+  <text x="385" y="1025" font-size="13" fill="#be123c" font-family="system-ui, sans-serif">艺术治疗</text>
+  <rect x="460" y="1005" width="80" height="30" rx="8" fill="#fff1f2"/>
+  <text x="475" y="1025" font-size="13" fill="#be123c" font-family="system-ui, sans-serif">教育管理</text>
+  <rect x="550" y="1005" width="100" height="30" rx="8" fill="#fff1f2"/>
+  <text x="565" y="1025" font-size="13" fill="#be123c" font-family="system-ui, sans-serif">人力资源</text>
+
+  <!-- Bottom links -->
+  <text x="620" y="1080" font-size="14" fill="#64748b" font-family="system-ui, sans-serif" text-decoration="underline">重新测试</text>
+  <text x="750" y="1080" font-size="14" font-weight="500" fill="#6366f1" font-family="system-ui, sans-serif" text-decoration="underline">返回仪表盘</text>
+</svg>

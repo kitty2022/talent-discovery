@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+    color: #1e293b; line-height: 1.8; font-size: 14px;
+  }
+  .page {
+    width: 210mm; padding: 25mm 20mm 20mm; page-break-after: always;
+    position: relative;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* 封面 */
+  .cover {
+    display: flex; flex-direction: column; justify-content: center;
+    align-items: center; text-align: center; height: 100%;
+  }
+  .cover .brand { font-size: 48px; font-weight: 700; background: linear-gradient(135deg, #4f46e5, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 8px; }
+  .cover .subtitle { font-size: 22px; color: #64748b; margin-top: 16px; letter-spacing: 4px; }
+  .cover .tagline { font-size: 13px; color: #94a3b8; margin-top: 40px; }
+  .cover .version { font-size: 11px; color: #94a3b8; margin-top: 60px; }
+  .cover .line { width: 60px; height: 3px; background: #4f46e5; border-radius: 2px; margin: 24px auto; }
+
+  /* 目录 */
+  .toc { margin-top: 40px; }
+  .toc-item { font-size: 15px; padding: 10px 0; border-bottom: 1px dashed #e2e8f0; color: #4f46e5; }
+
+  h1 { font-size: 22px; color: #4f46e5; margin: 24px 0 12px; padding-bottom: 8px; border-bottom: 2px solid #e0e7ff; }
+  h2 { font-size: 16px; color: #6366f1; margin: 20px 0 8px; }
+  h3 { font-size: 14px; color: #475569; margin: 14px 0 6px; }
+  p { margin: 6px 0; color: #334155; }
+  ul { margin: 4px 0 8px 20px; }
+  li { margin: 3px 0; color: #334155; }
+
+  /* 表格 */
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 12px; }
+  th { background: #6366f1; color: #fff; padding: 8px 10px; text-align: left; font-weight: 600; }
+  td { padding: 6px 10px; border-bottom: 1px solid #e2e8f0; }
+  tr:nth-child(even) { background: #f8fafc; }
+
+  /* 模块标签 */
+  .module-tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .tag-amber { background: #fef3c7; color: #d97706; }
+  .tag-blue { background: #dbeafe; color: #2563eb; }
+  .tag-rose { background: #ffe4e6; color: #e11d48; }
+  .tag-purple { background: #f3e8ff; color: #7c3aed; }
+  .tag-indigo { background: #e0e7ff; color: #4f46e5; }
+  .tag-green { background: #d1fae5; color: #059669; }
+
+  .section-card { background: #f8fafc; border-radius: 8px; padding: 12px 16px; margin: 8px 0; border-left: 3px solid #6366f1; }
+
+  .page-number {
+    position: absolute; bottom: 15mm; left: 0; right: 0; text-align: center;
+    font-size: 10px; color: #cbd5e1;
+  }
+
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ 封面 ============ -->
+<div class="page">
+  <div class="cover">
+    <div class="brand">天 赋 星 鉴</div>
+    <div class="line"></div>
+    <div class="subtitle">产品功能说明书</div>
+    <div class="tagline">业务功能模块 · 测评问题清单 · 产品逻辑说明</div>
+    <div class="version">
+      <p>版本 1.0</p>
+      <p style="margin-top:6px;">生成日期：2026 年 6 月 18 日</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 目录 ============ -->
+<div class="page">
+  <h1>目 录</h1>
+  <div class="toc">
+    <div class="toc-item">一、产品概述</div>
+    <div class="toc-item">二、用户系统</div>
+    <div class="toc-item">三、仪表盘</div>
+    <div class="toc-item">四、模块一：性格分析（八字排盘）</div>
+    <div class="toc-item">五、模块二：MBTI 人格测评</div>
+    <div class="toc-item">六、模块三：霍兰德职业测评</div>
+    <div class="toc-item">七、模块四：天职测评</div>
+    <div class="toc-item">八、测评报告系统</div>
+    <div class="toc-item">九、附录：各模块问题完整清单</div>
+  </div>
+</div>
+
+<!-- ============ 一、产品概述 ============ -->
+<div class="page">
+  <h1>一、产品概述</h1>
+
+  <h2>1.1 产品定位</h2>
+  <p><strong>天赋星鉴</strong> 是一款融合东方命理学（八字 / 五行）与西方心理学（MBTI / 霍兰德）的综合天赋分析平台。用户通过填写出生信息和完成多项测评，获得个性化的天赋分析报告，帮助了解自身先天特质与职业发展方向。</p>
+
+  <h2>1.2 核心价值主张</h2>
+  <ul>
+    <li>融合东方智慧 × 现代心理学</li>
+    <li>四大测评维度，全面解码天赋密码</li>
+    <li>三步找到你的天赋：填写信息 → 完成测评 → 获取报告</li>
+  </ul>
+
+  <h2>1.3 四大测评模块</h2>
+  <table>
+    <tr><th style="width:120px">模块</th><th style="width:180px">理论依据</th><th>说明</th></tr>
+    <tr><td><span class="module-tag tag-amber">性格分析</span></td><td>八字命理学</td><td>通过出生日期排盘，分析五行、十神、大运等先天特质</td></tr>
+    <tr><td><span class="module-tag tag-blue">MBTI 人格</span></td><td>Myers-Briggs 类型指标</td><td>15 道二选一题，确定 16 种人格类型</td></tr>
+    <tr><td><span class="module-tag tag-rose">霍兰德测评</span></td><td>John Holland 职业兴趣理论</td><td>15 道量表题，评估六维职业兴趣</td></tr>
+    <tr><td><span class="module-tag tag-purple">天职测评</span></td><td>天职发现理论框架</td><td>15 道量表题，从天赋/热情/价值三维度发现职业使命</td></tr>
+  </table>
+
+  <h2>1.4 技术架构</h2>
+  <ul>
+    <li><strong>前端：</strong>Next.js 15 + React 19 + Tailwind CSS 4（App Router）</li>
+    <li><strong>后端：</strong>Express + TypeScript + Prisma ORM + SQLite</li>
+    <li><strong>身份认证：</strong>JWT（7 天有效期）</li>
+    <li><strong>服务端口：</strong>前端 3000 · 后端 3001</li>
+  </ul>
+</div>
+
+<!-- ============ 二、用户系统 ============ -->
+<div class="page">
+  <h1>二、用户系统</h1>
+
+  <h2>2.1 用户注册</h2>
+  <p>用户在注册页面填写以下信息创建账号：</p>
+  <table>
+    <tr><th style="width:100px">字段</th><th style="width:120px">类型</th><th>说明</th></tr>
+    <tr><td>昵称</td><td>文本输入</td><td>必填，显示在仪表盘</td></tr>
+    <tr><td>邮箱</td><td>Email 输入</td><td>必填，唯一标识</td></tr>
+    <tr><td>密码</td><td>密码输入</td><td>最少 6 位，bcrypt 加密存储</td></tr>
+  </table>
+  <p>注册成功后自动返回 JWT 令牌，并跳转至仪表盘。</p>
+
+  <h2>2.2 用户登录</h2>
+  <ul>
+    <li>邮箱 + 密码登录验证</li>
+    <li>成功后返回 JWT（7 天有效期）及用户信息</li>
+    <li>Token 存储于浏览器 localStorage</li>
+  </ul>
+
+  <h2>2.3 密码重置</h2>
+  <ul>
+    <li><strong>忘记密码：</strong>输入邮箱 → 生成重置令牌（1 小时有效）→ 返回重置链接</li>
+    <li><strong>重置密码：</strong>携带令牌 → 输入新密码 → 更新成功</li>
+  </ul>
+  <p style="color:#64748b; font-size:12px;">注：当前未配置邮件服务，重置链接直接在 API 响应中返回。</p>
+</div>
+
+<!-- ============ 三、仪表盘 ============ -->
+<div class="page">
+  <h1>三、仪表盘</h1>
+
+  <h2>3.1 功能概览</h2>
+  <p>登录后的主界面，展示测评进度与各模块入口：</p>
+  <ul>
+    <li><strong>进度条</strong> — 显示已完成测评数量（X/4）</li>
+    <li><strong>模块卡片</strong> — 四大测评模块入口（图标 + 标题 + 描述 + 完成状态）</li>
+    <li><strong>生成综合报告按钮</strong> — 条件触发：完成性格分析 +（MBTI 或霍兰德）</li>
+    <li><strong>我的报告</strong> — 查看已生成的报告列表</li>
+  </ul>
+
+  <h2>3.2 模块状态管理</h2>
+  <p>系统自动检测用户在各模块的结果记录，标记为"已完成"（绿色勾）或"未完成"（灰色圈）。状态变化影响报告生成条件。</p>
+
+  <h2>3.3 导航与用户操作</h2>
+  <ul>
+    <li>顶部导航栏显示品牌 Logo 及用户昵称</li>
+    <li>退出登录按钮</li>
+    <li>报告快捷入口</li>
+  </ul>
+</div>
+
+<!-- ============ 四、性格分析 ============ -->
+<div class="page">
+  <h1>四、模块一：性格分析（八字排盘）</h1>
+
+  <div class="section-card">
+    <p><strong>模块 ID：</strong>bazi &nbsp;|&nbsp; <strong>路由：</strong>/assessments/bazi &nbsp;|&nbsp; <strong>后台 API：</strong>POST /api/bazi/calculate</p>
+  </div>
+
+  <h2>4.1 模块说明</h2>
+  <p>基于中国传统八字命理学，通过用户的出生年月日时进行排盘，计算四柱、五行、十神、大运等信息，分析先天性格特质。系统使用 <code>lunar-javascript</code> 库完成农历转换与天干地支计算。</p>
+
+  <h2>4.2 用户输入字段</h2>
+  <table>
+    <tr><th>序号</th><th>字段</th><th>输入类型</th><th>说明</th></tr>
+    <tr><td>1</td><td>出生日期（公历）</td><td>日期选择器</td><td>必填</td></tr>
+    <tr><td>2</td><td>性别</td><td>下拉选择</td><td>男 / 女</td></tr>
+    <tr><td>3</td><td>时辰（0-23 时）</td><td>下拉选择</td><td>默认 8 时（辰时）</td></tr>
+    <tr><td>4</td><td>分钟（0-59）</td><td>数字输入</td><td>默认 0</td></tr>
+  </table>
+
+  <h2>4.3 输出结果说明</h2>
+  <ul>
+    <li><strong>四柱信息</strong> — 年柱、月柱、日柱、时柱 + 纳音五行</li>
+    <li><strong>日主分析</strong> — 日柱天干对应的性格特质（甲-癸，共 10 种）</li>
+    <li><strong>五行分布</strong> — 木 / 火 / 土 / 金 / 水的数量统计与强弱分析</li>
+    <li><strong>用神 / 忌神</strong> — 五行平衡中需补充 / 制约的元素</li>
+    <li><strong>十神格局</strong> — 社会关系模式分析（比肩、劫财、食神等 10 种）</li>
+    <li><strong>大运走势</strong> — 每十年一运的运势周期（8 个周期）</li>
+    <li><strong>五运六气</strong> — 先天体质分析与中医调养建议（含易发问题、参考用药）</li>
+  </ul>
+
+  <h2>4.4 计算逻辑简述</h2>
+  <ul>
+    <li><strong>四柱：</strong>公历转农历 → 提取年 / 月 / 日天干地支 → 推算时柱（五鼠遁）</li>
+    <li><strong>纳音：</strong>60 甲子纳音表查询</li>
+    <li><strong>日主五行：</strong>天干对应的五行属性（甲木、乙木、丙火……）</li>
+    <li><strong>用神 / 忌神：</strong>取最弱 / 最强的五行元素</li>
+    <li><strong>十神：</strong>各天干与日主的关系（10 × 10 查表）</li>
+    <li><strong>大运：</strong>阴阳年 + 性别决定顺逆，每运 10 年</li>
+    <li><strong>五运六气：</strong>年干定五运（太过 / 不及），年支定六气（司天 / 在泉），5 × 6 组合分析</li>
+  </ul>
+</div>
+
+<!-- ============ 五、MBTI ============ -->
+<div class="page">
+  <h1>五、模块二：MBTI 人格测评</h1>
+
+  <div class="section-card">
+    <p><strong>模块 ID：</strong>mbti &nbsp;|&nbsp; <strong>路由：</strong>/assessments/mbti &nbsp;|&nbsp; <strong>题目数：</strong>15 题 &nbsp;|&nbsp; <strong>答题方式：</strong>二选一（A/B）</p>
+  </div>
+
+  <h2>5.1 模块说明</h2>
+  <p>基于 <strong>Myers-Briggs 类型指标</strong> 理论，通过 15 道二选一题目，评估用户在四个维度上的偏好，得出 16 种人格类型之一。</p>
+
+  <h2>5.2 四个评估维度</h2>
+  <table>
+    <tr><th>维度</th><th>全称</th><th>两极</th></tr>
+    <tr><td>EI</td><td>外向 (Extraversion) / 内向 (Introversion)</td><td>E（外向）↔ I（内向）</td></tr>
+    <tr><td>SN</td><td>实感 (Sensing) / 直觉 (Intuition)</td><td>S（实感）↔ N（直觉）</td></tr>
+    <tr><td>TF</td><td>理性 (Thinking) / 感性 (Feeling)</td><td>T（理性）↔ F（感性）</td></tr>
+    <tr><td>JP</td><td>判断 (Judging) / 感知 (Perceiving)</td><td>J（判断）↔ P（感知）</td></tr>
+  </table>
+
+  <h2>5.3 测评题目</h2>
+  <table>
+    <tr><th style="width:40px">#</th><th>问题</th><th style="width:60px">维度</th><th>选项 A</th><th>选项 B</th></tr>
+    <tr><td>1</td><td>周末你更倾向于？</td><td>EI</td><td>约朋友聚会</td><td>自己待着</td></tr>
+    <tr><td>2</td><td>在团队中你通常？</td><td>EI</td><td>主动发言</td><td>更多倾听</td></tr>
+    <tr><td>3</td><td>你获取能量的方式？</td><td>EI</td><td>和人交往</td><td>独处思考</td></tr>
+    <tr><td>4</td><td>你的社交风格是？</td><td>EI</td><td>朋友多且广</td><td>朋友少但深</td></tr>
+    <tr><td>5</td><td>你更关注？</td><td>SN</td><td>具体的事实细节</td><td>整体的概念可能</td></tr>
+    <tr><td>6</td><td>你更相信？</td><td>SN</td><td>亲身经验</td><td>直觉预感</td></tr>
+    <tr><td>7</td><td>你更喜欢谈论？</td><td>SN</td><td>实际事务</td><td>未来设想</td></tr>
+    <tr><td>8</td><td>学习时你喜欢？</td><td>SN</td><td>按部就班</td><td>先看全貌</td></tr>
+    <tr><td>9</td><td>做决定时你更依赖？</td><td>TF</td><td>逻辑分析</td><td>内心感受</td></tr>
+    <tr><td>10</td><td>你更看重？</td><td>TF</td><td>公平公正</td><td>和谐体谅</td></tr>
+    <tr><td>11</td><td>别人倾诉时你会？</td><td>TF</td><td>分析问题</td><td>给予安慰</td></tr>
+    <tr><td>12</td><td>你更容易被说服？</td><td>TF</td><td>数据和逻辑</td><td>情感共鸣</td></tr>
+    <tr><td>13</td><td>你更喜欢？</td><td>JP</td><td>计划安排</td><td>灵活随意</td></tr>
+    <tr><td>14</td><td>你的桌面通常是？</td><td>JP</td><td>整洁有序</td><td>随性摆放</td></tr>
+    <tr><td>15</td><td>面对截止日期？</td><td>JP</td><td>提前完成</td><td>最后冲刺</td></tr>
+  </table>
+
+  <h2>5.4 评分逻辑</h2>
+  <ul>
+    <li>每道题选 A 得 2 分，选 B 得 1 分</li>
+    <li>分别汇总 E/I/S/N/T/F/J/P 各方向的得分</li>
+    <li>维度倾向值公式：(正向分 − 反向分) / (正向分 + 反向分) × 100</li>
+    <li>正值为前者（如 E），负值为后者（如 I）</li>
+    <li>四个维度倾向字母组合为最终类型（如 INTJ）</li>
+    <li>全部 16 种类型均有对应的描述文本</li>
+  </ul>
+</div>
+
+<!-- ============ 六、霍兰德 ============ -->
+<div class="page">
+  <h1>六、模块三：霍兰德职业测评</h1>
+
+  <div class="section-card">
+    <p><strong>模块 ID：</strong>holland &nbsp;|&nbsp; <strong>路由：</strong>/assessments/holland &nbsp;|&nbsp; <strong>题目数：</strong>15 题 &nbsp;|&nbsp; <strong>答题方式：</strong>1-5 分 Likert 量表</p>
+  </div>
+
+  <h2>6.1 模块说明</h2>
+  <p>基于 <strong>John Holland 的职业兴趣理论</strong>（RIASEC 模型），通过 15 道量表题评估用户在六种职业兴趣类型上的倾向，得出三位霍兰德代码及推荐职业方向。</p>
+
+  <h2>6.2 六维职业兴趣类型</h2>
+  <table>
+    <tr><th style="width:60px">类型</th><th style="width:100px">名称</th><th>特质描述</th><th>推荐职业（示例）</th></tr>
+    <tr><td>R</td><td>现实型</td><td>动手操作、具体任务、工具机械</td><td>工程师、技术员、建筑师、飞行员</td></tr>
+    <tr><td>I</td><td>研究型</td><td>钻研原理、分析数据、科学发现</td><td>研究员、医生、程序员、数据分析师</td></tr>
+    <tr><td>A</td><td>艺术型</td><td>想象力、创造力、审美表达</td><td>设计师、作家、音乐家、演员</td></tr>
+    <tr><td>S</td><td>社会型</td><td>帮助他人、倾听理解、合作</td><td>教师、咨询师、护士、社工</td></tr>
+    <tr><td>E</td><td>企业型</td><td>领导力、竞争、说服力</td><td>创业者、销售经理、投资顾问</td></tr>
+    <tr><td>C</td><td>常规型</td><td>规范流程、条理有序、注重细节</td><td>会计师、审计师、行政助理</td></tr>
+  </table>
+
+  <h2>6.3 测评题目</h2>
+  <table>
+    <tr><th style="width:40px">#</th><th>问题</th><th style="width:70px">维度</th><th style="width:80px">分值</th></tr>
+    <tr><td>1</td><td>我喜欢动手修理或组装东西</td><td>R</td><td>1-5 分</td></tr>
+    <tr><td>2</td><td>我对机械、工具或仪器感兴趣</td><td>R</td><td>1-5 分</td></tr>
+    <tr><td>3</td><td>我喜欢具体的、看得见成果的任务</td><td>R</td><td>1-5 分</td></tr>
+    <tr><td>4</td><td>我喜欢钻研问题背后的原理</td><td>I</td><td>1-5 分</td></tr>
+    <tr><td>5</td><td>我善于分析数据和发现规律</td><td>I</td><td>1-5 分</td></tr>
+    <tr><td>6</td><td>我对科学发现和新知识很感兴趣</td><td>I</td><td>1-5 分</td></tr>
+    <tr><td>7</td><td>我有丰富的想象力和创造力</td><td>A</td><td>1-5 分</td></tr>
+    <tr><td>8</td><td>我喜欢写作、绘画、音乐或摄影</td><td>A</td><td>1-5 分</td></tr>
+    <tr><td>9</td><td>我欣赏美的事物，有独特审美</td><td>A</td><td>1-5 分</td></tr>
+    <tr><td>10</td><td>我喜欢帮助他人解决问题</td><td>S</td><td>1-5 分</td></tr>
+    <tr><td>11</td><td>我善于倾听和理解他人</td><td>S</td><td>1-5 分</td></tr>
+    <tr><td>12</td><td>别人的成长会让我有成就感</td><td>S</td><td>1-5 分</td></tr>
+    <tr><td>13</td><td>我有较强的领导力和说服力</td><td>E</td><td>1-5 分</td></tr>
+    <tr><td>14</td><td>我喜欢在竞争环境中脱颖而出</td><td>E</td><td>1-5 分</td></tr>
+    <tr><td>15</td><td>我喜欢按规范和流程做事，注重条理</td><td>C</td><td>1-5 分</td></tr>
+  </table>
+
+  <h2>6.4 评分逻辑</h2>
+  <ul>
+    <li>分别汇总 R/I/A/S/E/C 六个维度的得分（每题 3 题，单维度满分 15 分）</li>
+    <li>按得分从高到低排序</li>
+    <li>取前三位字母作为霍兰德代码（如 RIA）</li>
+    <li>根据得分最高的类型推荐职业方向（每类型 10 个，上限 6 个）</li>
+  </ul>
+</div>
+
+<!-- ============ 七、天职测评 ============ -->
+<div class="page">
+  <h1>七、模块四：天职测评</h1>
+
+  <div class="section-card">
+    <p><strong>模块 ID：</strong>tianzhi &nbsp;|&nbsp; <strong>路由：</strong>/assessments/tianzhi &nbsp;|&nbsp; <strong>题目数：</strong>15 题 &nbsp;|&nbsp; <strong>答题方式：</strong>1-5 分 Likert 量表（非常不同意 → 非常同意）</p>
+  </div>
+
+  <h2>7.1 模块说明</h2>
+  <p>基于"发现你的天职"理论框架，通过 15 道量表题，从 <strong>天赋（Talent）</strong>、<strong>热情（Passion）</strong>、<strong>价值（Value）</strong> 三个核心维度评估用户，帮助找到最适合的职业使命方向。</p>
+
+  <h2>7.2 三维度框架</h2>
+  <ul>
+    <li><strong>天赋（Talent）</strong> — 你擅长什么？（5 题，含分析型、创意型、社交型、执行型、实践型 5 个子维度）</li>
+    <li><strong>热情（Passion）</strong> — 你热爱什么？（5 题，含探索发现、创造建设、助人成长、引领改变、精进专研 5 个子维度）</li>
+    <li><strong>价值（Value）</strong> — 你看重什么？（5 题，含成就导向、平衡导向、影响导向、自由导向、安全导向 5 个子维度）</li>
+  </ul>
+
+  <h2>7.3 测评题目</h2>
+  <table>
+    <tr><th style="width:40px">#</th><th>问题</th><th style="width:120px">主维度</th><th style="width:80px">分值</th></tr>
+    <tr><td>1</td><td>我擅长时间规划和任务管理</td><td>天赋（Talent）</td><td>1-5 分</td></tr>
+    <tr><td>2</td><td>我经常有新奇的想法和创意</td><td>天赋（Talent）</td><td>1-5 分</td></tr>
+    <tr><td>3</td><td>我善于理解他人的感受和需求</td><td>天赋（Talent）</td><td>1-5 分</td></tr>
+    <tr><td>4</td><td>我喜欢分析数据、发现规律</td><td>天赋（Talent）</td><td>1-5 分</td></tr>
+    <tr><td>5</td><td>我动手能力强，能把想法变成现实</td><td>天赋（Talent）</td><td>1-5 分</td></tr>
+    <tr><td>6</td><td>探索未知领域让我兴奋</td><td>热情（Passion）</td><td>1-5 分</td></tr>
+    <tr><td>7</td><td>创造新事物让我充满动力</td><td>热情（Passion）</td><td>1-5 分</td></tr>
+    <tr><td>8</td><td>帮助他人成长让我感到满足</td><td>热情（Passion）</td><td>1-5 分</td></tr>
+    <tr><td>9</td><td>带领团队实现目标有成就感</td><td>热情（Passion）</td><td>1-5 分</td></tr>
+    <tr><td>10</td><td>我愿意花大量时间钻研一个领域</td><td>热情（Passion）</td><td>1-5 分</td></tr>
+    <tr><td>11</td><td>获得成就和认可对我很重要</td><td>价值（Value）</td><td>1-5 分</td></tr>
+    <tr><td>12</td><td>工作与生活的平衡很重要</td><td>价值（Value）</td><td>1-5 分</td></tr>
+    <tr><td>13</td><td>我希望工作对社会有积极影响</td><td>价值（Value）</td><td>1-5 分</td></tr>
+    <tr><td>14</td><td>拥有自主权和自由对我很重要</td><td>价值（Value）</td><td>1-5 分</td></tr>
+    <tr><td>15</td><td>稳定和安全感是我看重的</td><td>价值（Value）</td><td>1-5 分</td></tr>
+  </table>
+
+  <h2>7.4 评分逻辑</h2>
+  <ul>
+    <li>分别汇总天赋、热情、价值三个主维度得分（各 5 题，满分 25 分）</li>
+    <li>各主维度下含 5 个子维度，每子维度 1 题，用于精细化分析</li>
+    <li>综合各维度得分生成天职建议文本</li>
+  </ul>
+</div>
+
+<!-- ============ 八、报告系统 ============ -->
+<div class="page">
+  <h1>八、测评报告系统</h1>
+
+  <h2>8.1 报告生成条件</h2>
+  <ul>
+    <li><strong>必要条件：</strong>完成性格分析 +（MBTI 或霍兰德测评中的至少一项）</li>
+    <li><strong>建议条件：</strong>完成全部四项测评，可获得最完整的报告</li>
+  </ul>
+
+  <h2>8.2 报告结构</h2>
+  <p>生成的综合报告包含以下 5 个章节：</p>
+
+  <h3>（1）先天分析</h3>
+  <ul>
+    <li>四柱信息 — 年 / 月 / 日 / 时柱及纳音五行</li>
+    <li>日主分析 — 天干对应的先天性格特质</li>
+    <li>五行分析 — 五行分布强弱及对应的职业特质</li>
+    <li>十神格局 — 社会关系模式分析</li>
+    <li>大运走势 — 十年运势周期描述</li>
+    <li>五运六气 — 先天体质与中医调养建议</li>
+  </ul>
+
+  <h3>（2）MBTI 人格类型</h3>
+  <ul>
+    <li>类型标识（如 INTJ）</li>
+    <li>四维度倾向百分比</li>
+    <li>类型详细描述</li>
+  </ul>
+
+  <h3>（3）霍兰德职业兴趣</h3>
+  <ul>
+    <li>三位霍兰德代码</li>
+    <li>六维度得分排序</li>
+    <li>推荐职业方向（上限 6 个）</li>
+  </ul>
+
+  <h3>（4）天职分析</h3>
+  <ul>
+    <li>综合天职推荐文本</li>
+  </ul>
+
+  <h3>（5）综合天赋分析</h3>
+  <ul>
+    <li><strong>命理与人格的呼应</strong> — 八字日主 × MBTI 交叉分析（阳干 + E、阴干 + I 等组合）</li>
+    <li><strong>五行与职业兴趣的关联</strong> — 最强五行 → 霍兰德类型映射（木→A、火→S/E 等）</li>
+    <li><strong>天赋发展建议</strong> — 根据日主（10 种）+ MBTI 类型（16 种）给出个性化方向</li>
+  </ul>
+
+  <h2>8.3 数据可视化</h2>
+  <ul>
+    <li><strong>五行分布图</strong> — 根据五行数量显示彩色圆点（木/火/土/金/水）</li>
+    <li><strong>MBTI 维度条</strong> — 四维度倾向百分比条形图</li>
+    <li><strong>霍兰德柱状图</strong> — 六维得分横向柱状图</li>
+    <li><strong>大运时间线</strong> — 可横向滚动的运势卡片</li>
+  </ul>
+
+  <h2>8.4 报告附加功能</h2>
+  <ul>
+    <li><strong>分享功能</strong> — 生成分享链接，他人无需登录即可查看</li>
+    <li><strong>删除管理</strong> — 用户可删除历史报告</li>
+    <li><strong>打印导出</strong> — 浏览器打印输出为 PDF</li>
+  </ul>
+
+  <h2>8.5 API 端点</h2>
+  <table>
+    <tr><th style="width:200px">端点</th><th style="width:80px">方法</th><th>说明</th></tr>
+    <tr><td>/api/reports/generate</td><td>POST</td><td>生成报告（需认证）</td></tr>
+    <tr><td>/api/reports</td><td>GET</td><td>获取报告列表（需认证）</td></tr>
+    <tr><td>/api/reports/:id</td><td>GET</td><td>获取单份报告（需认证）</td></tr>
+    <tr><td>/api/reports/:id</td><td>DELETE</td><td>删除报告（需认证）</td></tr>
+    <tr><td>/api/reports/:id/share</td><td>POST</td><td>生成分享链接（需认证）</td></tr>
+    <tr><td>/api/shared/:token</td><td>GET</td><td>公开访问分享的报告（无需认证）</td></tr>
+  </table>
+</div>
+
+<!-- ============ 九、附录 ============ -->
+<div class="page">
+  <h1>九、附录：各模块问题完整清单</h1>
+
+  <h2>9.1 性格分析 — 输入字段</h2>
+  <table>
+    <tr><th>#</th><th>字段</th><th>类型</th><th>约束</th></tr>
+    <tr><td>1</td><td>出生日期（公历）</td><td>日期选择器</td><td>必填</td></tr>
+    <tr><td>2</td><td>性别</td><td>男 / 女</td><td>必选</td></tr>
+    <tr><td>3</td><td>出生时辰（0-23 时）</td><td>下拉选择</td><td>默认 8 时</td></tr>
+    <tr><td>4</td><td>出生分钟（0-59）</td><td>数字输入</td><td>默认 0</td></tr>
+  </table>
+
+  <h2>9.2 MBTI 人格测评 — 15 题</h2>
+  <table>
+    <tr><th>#</th><th>问题</th><th>维度</th><th>选项 A</th><th>选项 B</th></tr>
+    <tr><td>1</td><td>周末你更倾向于？</td><td>EI</td><td>约朋友聚会</td><td>自己待着</td></tr>
+    <tr><td>2</td><td>在团队中你通常？</td><td>EI</td><td>主动发言</td><td>更多倾听</td></tr>
+    <tr><td>3</td><td>你获取能量的方式？</td><td>EI</td><td>和人交往</td><td>独处思考</td></tr>
+    <tr><td>4</td><td>你的社交风格是？</td><td>EI</td><td>朋友多且广</td><td>朋友少但深</td></tr>
+    <tr><td>5</td><td>你更关注？</td><td>SN</td><td>具体的事实细节</td><td>整体的概念可能</td></tr>
+    <tr><td>6</td><td>你更相信？</td><td>SN</td><td>亲身经验</td><td>直觉预感</td></tr>
+    <tr><td>7</td><td>你更喜欢谈论？</td><td>SN</td><td>实际事务</td><td>未来设想</td></tr>
+    <tr><td>8</td><td>学习时你喜欢？</td><td>SN</td><td>按部就班</td><td>先看全貌</td></tr>
+    <tr><td>9</td><td>做决定时你更依赖？</td><td>TF</td><td>逻辑分析</td><td>内心感受</td></tr>
+    <tr><td>10</td><td>你更看重？</td><td>TF</td><td>公平公正</td><td>和谐体谅</td></tr>
+    <tr><td>11</td><td>别人倾诉时你会？</td><td>TF</td><td>分析问题</td><td>给予安慰</td></tr>
+    <tr><td>12</td><td>你更容易被说服？</td><td>TF</td><td>数据和逻辑</td><td>情感共鸣</td></tr>
+    <tr><td>13</td><td>你更喜欢？</td><td>JP</td><td>计划安排</td><td>灵活随意</td></tr>
+    <tr><td>14</td><td>你的桌面通常是？</td><td>JP</td><td>整洁有序</td><td>随性摆放</td></tr>
+    <tr><td>15</td><td>面对截止日期？</td><td>JP</td><td>提前完成</td><td>最后冲刺</td></tr>
+  </table>
+</div>
+
+<div class="page">
+  <h2>9.3 霍兰德职业测评 — 15 题</h2>
+  <table>
+    <tr><th>#</th><th>问题</th><th>维度</th><th>分值</th></tr>
+    <tr><td>1</td><td>我喜欢动手修理或组装东西</td><td>R</td><td>1-5</td></tr>
+    <tr><td>2</td><td>我对机械、工具或仪器感兴趣</td><td>R</td><td>1-5</td></tr>
+    <tr><td>3</td><td>我喜欢具体的、看得见成果的任务</td><td>R</td><td>1-5</td></tr>
+    <tr><td>4</td><td>我喜欢钻研问题背后的原理</td><td>I</td><td>1-5</td></tr>
+    <tr><td>5</td><td>我善于分析数据和发现规律</td><td>I</td><td>1-5</td></tr>
+    <tr><td>6</td><td>我对科学发现和新知识很感兴趣</td><td>I</td><td>1-5</td></tr>
+    <tr><td>7</td><td>我有丰富的想象力和创造力</td><td>A</td><td>1-5</td></tr>
+    <tr><td>8</td><td>我喜欢写作、绘画、音乐或摄影</td><td>A</td><td>1-5</td></tr>
+    <tr><td>9</td><td>我欣赏美的事物，有独特审美</td><td>A</td><td>1-5</td></tr>
+    <tr><td>10</td><td>我喜欢帮助他人解决问题</td><td>S</td><td>1-5</td></tr>
+    <tr><td>11</td><td>我善于倾听和理解他人</td><td>S</td><td>1-5</td></tr>
+    <tr><td>12</td><td>别人的成长会让我有成就感</td><td>S</td><td>1-5</td></tr>
+    <tr><td>13</td><td>我有较强的领导力和说服力</td><td>E</td><td>1-5</td></tr>
+    <tr><td>14</td><td>我喜欢在竞争环境中脱颖而出</td><td>E</td><td>1-5</td></tr>
+    <tr><td>15</td><td>我喜欢按规范和流程做事，注重条理</td><td>C</td><td>1-5</td></tr>
+  </table>
+
+  <h2>9.4 天职测评 — 15 题</h2>
+  <table>
+    <tr><th>#</th><th>问题</th><th>维度</th><th>子维度</th><th>分值</th></tr>
+    <tr><td>1</td><td>我擅长时间规划和任务管理</td><td>天赋</td><td>执行型</td><td>1-5</td></tr>
+    <tr><td>2</td><td>我经常有新奇的想法和创意</td><td>天赋</td><td>创意型</td><td>1-5</td></tr>
+    <tr><td>3</td><td>我善于理解他人的感受和需求</td><td>天赋</td><td>社交型</td><td>1-5</td></tr>
+    <tr><td>4</td><td>我喜欢分析数据、发现规律</td><td>天赋</td><td>分析型</td><td>1-5</td></tr>
+    <tr><td>5</td><td>我动手能力强，能把想法变成现实</td><td>天赋</td><td>实践型</td><td>1-5</td></tr>
+    <tr><td>6</td><td>探索未知领域让我兴奋</td><td>热情</td><td>探索发现</td><td>1-5</td></tr>
+    <tr><td>7</td><td>创造新事物让我充满动力</td><td>热情</td><td>创造建设</td><td>1-5</td></tr>
+    <tr><td>8</td><td>帮助他人成长让我感到满足</td><td>热情</td><td>助人成长</td><td>1-5</td></tr>
+    <tr><td>9</td><td>带领团队实现目标有成就感</td><td>热情</td><td>引领改变</td><td>1-5</td></tr>
+    <tr><td>10</td><td>我愿意花大量时间钻研一个领域</td><td>热情</td><td>精进专研</td><td>1-5</td></tr>
+    <tr><td>11</td><td>获得成就和认可对我很重要</td><td>价值</td><td>成就导向</td><td>1-5</td></tr>
+    <tr><td>12</td><td>工作与生活的平衡很重要</td><td>价值</td><td>平衡导向</td><td>1-5</td></tr>
+    <tr><td>13</td><td>我希望工作对社会有积极影响</td><td>价值</td><td>影响导向</td><td>1-5</td></tr>
+    <tr><td>14</td><td>拥有自主权和自由对我很重要</td><td>价值</td><td>自由导向</td><td>1-5</td></tr>
+    <tr><td>15</td><td>稳定和安全感是我看重的</td><td>价值</td><td>安全导向</td><td>1-5</td></tr>
+  </table>
+
+  <p style="margin-top:30px; text-align:center; color:#94a3b8; font-size:12px;">— 天赋星鉴 · 产品功能说明书 · 完 —</p>
+</div>
+
+</body>
+</html>

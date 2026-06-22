@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1600" width="1440" height="1600">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fef9f0"/>
+      <stop offset="50%" stop-color="#f0f4ff"/>
+      <stop offset="100%" stop-color="#fdf2f8"/>
+    </linearGradient>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="hero" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="70%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#6366f1" flood-opacity="0.15"/>
+    </filter>
+    <filter id="cardShadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.05"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1440" height="1600" fill="url(#bg)"/>
+
+  <!-- Navbar -->
+  <rect x="0" y="0" width="1440" height="72" fill="rgba(255,255,255,0.85)" rx="0"/>
+  <rect x="0" y="72" width="1440" height="1" fill="#e2e8f0"/>
+  <!-- Logo -->
+  <circle cx="48" cy="36" r="10" fill="#6366f1" opacity="0.9"/>
+  <text x="68" y="41" font-size="20" font-weight="700" fill="url(#brand)" font-family="system-ui, -apple-system, sans-serif">天赋星鉴</text>
+  <!-- Nav buttons -->
+  <rect x="1100" y="22" width="50" height="28" rx="14" fill="none" stroke="#64748b" stroke-width="1"/>
+  <text x="1112" y="41" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">登录</text>
+  <rect x="1165" y="18" width="100" height="36" rx="18" fill="#6366f1" filter="url(#shadow)"/>
+  <text x="1185" y="41" font-size="14" font-weight="600" fill="#fff" font-family="system-ui, sans-serif">开始测评</text>
+
+  <!-- Hero Section -->
+  <!-- Badge -->
+  <rect x="560" y="120" width="185" height="30" rx="15" fill="#eef2ff"/>
+  <circle cx="575" cy="135" r="6" fill="#6366f1"/>
+  <text x="586" y="139" font-size="13" fill="#6366f1" font-family="system-ui, sans-serif">融合东方智慧 × 现代心理学</text>
+
+  <text x="280" y="210" font-size="62" font-weight="800" fill="#1e293b" font-family="system-ui, sans-serif">发现你的</text>
+  <text x="280" y="290" font-size="62" font-weight="800" fill="url(#hero)" font-family="system-ui, sans-serif">天赋优势</text>
+
+  <text x="280" y="340" font-size="20" fill="#64748b" font-family="system-ui, sans-serif">八字命理 · 紫微斗数 · 周易智慧 · MBTI · 霍兰德测评</text>
+  <text x="390" y="375" font-size="20" fill="#64748b" font-family="system-ui, sans-serif">五大维度，全面解码你的天赋密码</text>
+
+  <!-- CTA Buttons -->
+  <rect x="280" y="410" width="200" height="56" rx="28" fill="#6366f1" filter="url(#shadow)"/>
+  <text x="320" y="444" font-size="18" font-weight="600" fill="#fff" font-family="system-ui, sans-serif">开始探索天赋 →</text>
+
+  <rect x="505" y="410" width="160" height="56" rx="28" fill="#fff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="545" y="444" font-size="18" fill="#64748b" font-family="system-ui, sans-serif">已有报告</text>
+
+  <!-- Decorative circles -->
+  <circle cx="1280" cy="200" r="120" fill="#6366f1" opacity="0.03"/>
+  <circle cx="180" cy="500" r="80" fill="#8b5cf6" opacity="0.03"/>
+  <circle cx="1200" cy="450" r="60" fill="#f59e0b" opacity="0.03"/>
+
+  <!-- Assessment Modules Section -->
+  <text x="580" y="570" font-size="36" font-weight="700" fill="#1e293b" font-family="system-ui, sans-serif">五大测评维度</text>
+  <text x="440" y="605" font-size="16" fill="#94a3b8" font-family="system-ui, sans-serif">东方命理揭示先天潜质，西方心理学发现后天偏好，全方位认识自己</text>
+
+  <!-- Module Cards Grid (3x2) -->
+  <!-- Card 1: 八字命理 -->
+  <rect x="120" y="640" width="380" height="160" rx="16" fill="#fffbeb" filter="url(#cardShadow)"/>
+  <rect x="120" y="640" width="380" height="160" rx="16" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="140" y="660" width="52" height="52" rx="12" fill="#fef3c7"/>
+  <text x="154" y="693" font-size="24" fill="#d97706">☯</text>
+  <text x="210" y="683" font-size="18" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">八字命理</text>
+  <text x="210" y="710" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">通过出生年月日时排盘，分析五行平衡、</text>
+  <text x="210" y="730" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">十神格局，解读先天命格特质</text>
+
+  <!-- Card 2: 紫微斗数 -->
+  <rect x="530" y="640" width="380" height="160" rx="16" fill="#faf5ff" filter="url(#cardShadow)"/>
+  <rect x="530" y="640" width="380" height="160" rx="16" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="550" y="660" width="52" height="52" rx="12" fill="#f3e8ff"/>
+  <text x="566" y="693" font-size="24" fill="#9333ea">✦</text>
+  <text x="620" y="683" font-size="18" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">紫微斗数</text>
+  <text x="620" y="710" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">十四主星飞布十二宫，命盘解码人生</text>
+  <text x="620" y="730" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">天赋领域与发展方向</text>
+
+  <!-- Card 3: 周易智慧 -->
+  <rect x="940" y="640" width="380" height="160" rx="16" fill="#f0fdf4" filter="url(#cardShadow)"/>
+  <rect x="940" y="640" width="380" height="160" rx="16" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="960" y="660" width="52" height="52" rx="12" fill="#dcfce7"/>
+  <text x="974" y="693" font-size="24" fill="#16a34a">☰</text>
+  <text x="1030" y="683" font-size="18" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">周易智慧</text>
+  <text x="1030" y="710" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">起卦解读，从易经智慧中获取人生</text>
+  <text x="1030" y="730" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">指引与决策参考</text>
+
+  <!-- Card 4: MBTI -->
+  <rect x="120" y="820" width="380" height="160" rx="16" fill="#eff6ff" filter="url(#cardShadow)"/>
+  <rect x="120" y="820" width="380" height="160" rx="16" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="140" y="840" width="52" height="52" rx="12" fill="#dbeafe"/>
+  <text x="154" y="873" font-size="24" fill="#2563eb">🧠</text>
+  <text x="210" y="863" font-size="18" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">MBTI 人格</text>
+  <text x="210" y="890" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">经典 Myers-Briggs 类型指标，认清你的</text>
+  <text x="210" y="910" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">思维偏好与行为模式</text>
+
+  <!-- Card 5: 霍兰德 -->
+  <rect x="530" y="820" width="380" height="160" rx="16" fill="#fff1f2" filter="url(#cardShadow)"/>
+  <rect x="530" y="820" width="380" height="160" rx="16" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="550" y="840" width="52" height="52" rx="12" fill="#ffe4e6"/>
+  <text x="564" y="873" font-size="24" fill="#e11d48">📊</text>
+  <text x="620" y="863" font-size="18" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">霍兰德测评</text>
+  <text x="620" y="890" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">六维职业兴趣评估，匹配最适合你的</text>
+  <text x="620" y="910" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">职业发展方向</text>
+
+  <!-- Card 6: 天职发现 -->
+  <rect x="940" y="820" width="380" height="160" rx="16" fill="#eef2ff" filter="url(#cardShadow)"/>
+  <rect x="940" y="820" width="380" height="160" rx="16" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="960" y="840" width="52" height="52" rx="12" fill="#e0e7ff"/>
+  <text x="974" y="873" font-size="24" fill="#6366f1">⭐</text>
+  <text x="1030" y="863" font-size="18" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">天职发现</text>
+  <text x="1030" y="890" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">结合天赋、热情、价值观，帮你找到</text>
+  <text x="1030" y="910" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">真正的职业使命</text>
+
+  <!-- Steps Section -->
+  <rect x="0" y="1050" width="1440" height="400" fill="rgba(255,255,255,0.5)"/>
+  <text x="560" y="1120" font-size="36" font-weight="700" fill="#1e293b" font-family="system-ui, sans-serif">三步找到你的天赋</text>
+  <text x="550" y="1155" font-size="16" fill="#94a3b8" font-family="system-ui, sans-serif">简单三步，获得你专属的天赋分析报告</text>
+
+  <!-- Step 1 -->
+  <circle cx="360" cy="1240" r="44" fill="#6366f1" filter="url(#shadow)"/>
+  <text x="352" y="1248" font-size="24" font-weight="700" fill="#fff" font-family="system-ui, sans-serif">01</text>
+  <text x="330" y="1320" font-size="20" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">填写信息</text>
+  <text x="298" y="1350" font-size="14" fill="#64748b" font-family="system-ui, sans-serif">输入出生年月日时等基本信息</text>
+
+  <!-- Connector 1 -->
+  <line x1="480" y1="1240" x2="600" y2="1240" stroke="#e2e8f0" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Step 2 -->
+  <circle cx="720" cy="1240" r="44" fill="#6366f1" filter="url(#shadow)"/>
+  <text x="712" y="1248" font-size="24" font-weight="700" fill="#fff" font-family="system-ui, sans-serif">02</text>
+  <text x="690" y="1320" font-size="20" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">完成测评</text>
+  <text x="660" y="1350" font-size="14" fill="#64748b" font-family="system-ui, sans-serif">参与 MBTI、霍兰德等专业测评</text>
+
+  <!-- Connector 2 -->
+  <line x1="840" y1="1240" x2="960" y2="1240" stroke="#e2e8f0" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Step 3 -->
+  <circle cx="1080" cy="1240" r="44" fill="#6366f1" filter="url(#shadow)"/>
+  <text x="1072" y="1248" font-size="24" font-weight="700" fill="#fff" font-family="system-ui, sans-serif">03</text>
+  <text x="1050" y="1320" font-size="20" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">获取报告</text>
+  <text x="1020" y="1350" font-size="14" fill="#64748b" font-family="system-ui, sans-serif">生成融合东西方视角的综合天赋报告</text>
+
+  <!-- Footer -->
+  <rect x="0" y="1450" width="1440" height="150" fill="#fff"/>
+  <rect x="0" y="1450" width="1440" height="1" fill="#e2e8f0"/>
+  <text x="610" y="1510" font-size="14" fill="#94a3b8" font-family="system-ui, sans-serif">天赋星鉴 · 发现你的天赋优势</text>
+  <text x="540" y="1540" font-size="13" fill="#cbd5e1" font-family="system-ui, sans-serif">仅供个人参考，命理分析结果请理性看待</text>
+</svg>

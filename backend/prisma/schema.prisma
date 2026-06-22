@@ -1,0 +1,151 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id              Int       @id @default(autoincrement())
+  email           String    @unique
+  password        String
+  nickname        String
+  resetToken      String?
+  resetTokenExpiry DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  baziResults   BaZiResult[]
+  ziweiResults  ZiWeiResult[]
+  mbtiResults   MBTIResult[]
+  hollandResults HollandResult[]
+  tianzhiResults TianZhiResult[]
+  reports       Report[]
+}
+
+model BaZiResult {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  // 四柱
+  yearPillar   String  // 年柱 如 "甲子"
+  monthPillar  String  // 月柱 如 "丙寅"
+  dayPillar    String  // 日柱 如 "戊申"
+  hourPillar   String  // 时柱 如 "丁巳"
+  // 天干
+  yearStem     String
+  monthStem    String
+  dayStem      String
+  hourStem     String
+  // 地支
+  yearBranch   String
+  monthBranch  String
+  dayBranch    String
+  hourBranch   String
+  // 纳音
+  yearNaYin    String
+  monthNaYin   String
+  dayNaYin     String
+  hourNaYin    String
+  // 五行
+  fiveElements String  // 五行统计 JSON
+  // 十神
+  shiShen      String  // 十神 JSON
+  // 用神忌神
+  yongShen     String  // 用神
+  jiShen       String  // 忌神
+  // 大运
+  daYun        String  // 大运 JSON
+  // 原始数据
+  rawData      String  // 完整数据 JSON
+
+  createdAt DateTime @default(now())
+
+  user  User   @relation(fields: [userId], references: [id])
+
+  @@unique([userId])
+}
+
+model ZiWeiResult {
+  userId      Int
+  // 命主信息
+  mingGong    String   // 命宫
+  shenGong    String   // 身宫
+  // 十二宫
+  palaces     String   // 十二宫数据 JSON
+  // 星曜
+  stars       String   // 主星+辅星 JSON
+  // 四化
+  huaLu       String   // 化禄
+  huaQuan     String   // 化权
+  huaKe       String   // 化科
+  huaJi       String   // 化忌
+  // 五行局
+  wuXingJu    String   // 五行局
+  // 完整数据
+  rawData     String   // JSON
+
+  createdAt   DateTime @default(now())
+
+  user  User   @relation(fields: [userId], references: [id])
+
+  @@unique([userId])
+}
+
+model MBTIResult {
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  personalityType String   // 如 "INTJ"
+  // 四个维度得分
+  dimensionScores String   // JSON: {ei: 65, sn: 30, tf: 80, jp: 55}
+  answers         String   // 答题记录 JSON
+  completedAt     DateTime @default(now())
+
+  user   User    @relation(fields: [userId], references: [id])
+
+  @@unique([userId])
+}
+
+model HollandResult {
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  personalityType String   // 如 "RIASEC" 排序
+  dimensionScores String   // JSON: {R: 85, I: 70, A: 45, S: 60, E: 55, C: 40}
+  answers         String   // 答题记录 JSON
+  completedAt     DateTime @default(now())
+
+  user   User    @relation(fields: [userId], references: [id])
+
+  @@unique([userId])
+}
+
+model TianZhiResult {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  answers     String   // 答题记录 JSON
+  results     String   // 结果 JSON
+  completedAt DateTime @default(now())
+
+  user   User    @relation(fields: [userId], references: [id])
+
+  @@unique([userId])
+}
+
+model Report {
+  id         Int       @id @default(autoincrement())
+  userId     Int
+  title      String    // 报告标题
+  summary    String    // 简短摘要
+  sections   String    // 各章节内容 JSON
+  shareToken String?   @unique // 分享令牌
+  createdAt  DateTime  @default(now())
+
+  user          User  @relation(fields: [userId], references: [id])
+
+  baziResultId   Int?
+  ziweiResultId  Int?
+  mbtiResultId   Int?
+  hollandResultId Int?
+  tianzhiResultId Int?
+}

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fef9f0"/>
+      <stop offset="50%" stop-color="#f0f4ff"/>
+      <stop offset="100%" stop-color="#fdf2f8"/>
+    </linearGradient>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000" flood-opacity="0.08"/>
+    </filter>
+    <filter id="inputShadow">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#6366f1" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <rect width="1440" height="900" fill="url(#bg)"/>
+
+  <!-- Card -->
+  <rect x="460" y="60" width="520" height="540" rx="24" fill="#fff" filter="url(#shadow)"/>
+  <rect x="460" y="60" width="520" height="540" rx="24" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Logo -->
+  <circle cx="695" cy="100" r="16" fill="#6366f1" opacity="0.9"/>
+  <text x="718" y="106" font-size="22" font-weight="700" fill="url(#brand)" font-family="system-ui, sans-serif">天赋星鉴</text>
+
+  <text x="640" y="155" font-size="28" font-weight="700" fill="#1e293b" font-family="system-ui, sans-serif">欢迎回来</text>
+  <text x="590" y="185" font-size="16" fill="#64748b" font-family="system-ui, sans-serif">登录继续你的天赋探索之旅</text>
+
+  <!-- Form -->
+  <text x="500" y="245" font-size="14" font-weight="500" fill="#374151" font-family="system-ui, sans-serif">邮箱</text>
+  <rect x="500" y="255" width="440" height="48" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="516" y="285" font-size="15" fill="#94a3b8" font-family="system-ui, sans-serif">your@email.com</text>
+
+  <text x="500" y="335" font-size="14" font-weight="500" fill="#374151" font-family="system-ui, sans-serif">密码</text>
+  <text x="830" y="335" font-size="13" fill="#6366f1" font-family="system-ui, sans-serif" text-decoration="underline">忘记密码？</text>
+  <rect x="500" y="345" width="440" height="48" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="516" y="375" font-size="20" fill="#94a3b8" font-family="system-ui, sans-serif">••••••</text>
+
+  <!-- Submit Button -->
+  <rect x="500" y="425" width="440" height="48" rx="12" fill="#6366f1" filter="url(#inputShadow)"/>
+  <text x="698" y="455" font-size="16" font-weight="600" fill="#fff" font-family="system-ui, sans-serif">登录</text>
+
+  <!-- Register link -->
+  <text x="620" y="505" font-size="14" fill="#64748b" font-family="system-ui, sans-serif">还没有账号？</text>
+  <text x="750" y="505" font-size="14" font-weight="600" fill="#6366f1" font-family="system-ui, sans-serif" text-decoration="underline">立即注册</text>
+</svg>

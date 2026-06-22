@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f0f4ff"/>
+      <stop offset="100%" stop-color="#fef9f0"/>
+    </linearGradient>
+    <linearGradient id="progress" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="reportsBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#faf5ff"/>
+    </linearGradient>
+    <filter id="cardShadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.04"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1440" height="900" fill="rgba(249,250,251,0.5)"/>
+
+  <!-- Navbar -->
+  <rect x="0" y="0" width="1440" height="64" fill="#fff"/>
+  <rect x="0" y="64" width="1440" height="1" fill="#e2e8f0"/>
+  <circle cx="32" cy="32" r="10" fill="#6366f1" opacity="0.9"/>
+  <text x="50" y="37" font-size="18" font-weight="700" fill="#1e293b" font-family="system-ui, sans-serif">天赋星鉴</text>
+  <text x="1280" y="37" font-size="14" fill="#64748b" font-family="system-ui, sans-serif">张三</text>
+  <!-- Logout icon -->
+  <rect x="1340" y="20" width="24" height="24" rx="4" fill="none" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="1340" y1="32" x2="1352" y2="32" stroke="#94a3b8" stroke-width="2"/>
+
+  <!-- Main Content -->
+  <rect x="100" y="100" width="1240" height="700" rx="0"/>
+
+  <!-- Progress Card -->
+  <rect x="100" y="100" width="620" height="140" rx="16" fill="#fff" filter="url(#cardShadow)"/>
+  <rect x="100" y="100" width="620" height="140" rx="16" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="120" y="135" font-size="18" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">测评进度</text>
+  <text x="600" y="135" font-size="14" fill="#64748b" font-family="system-ui, sans-serif">2/4 已完成</text>
+  <!-- Progress bar -->
+  <rect x="120" y="150" width="580" height="10" rx="5" fill="#f1f5f9"/>
+  <rect x="120" y="150" width="290" height="10" rx="5" fill="url(#progress)" opacity="1"/>
+  <!-- Generate report button -->
+  <rect x="120" y="180" width="170" height="36" rx="10" fill="#6366f1"/>
+  <rect x="136" y="190" width="16" height="16" rx="2" fill="#fff" opacity="0.9"/>
+  <text x="156" y="203" font-size="13" font-weight="500" fill="#fff" font-family="system-ui, sans-serif">生成综合报告 →</text>
+
+  <!-- Module Grid - 4 cards in 2x2 -->
+  <!-- Card 1: 八字排盘 (completed) -->
+  <rect x="100" y="260" width="300" height="100" rx="16" fill="#fff" filter="url(#cardShadow)"/>
+  <rect x="100" y="260" width="300" height="100" rx="16" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="120" y="280" width="48" height="48" rx="12" fill="#fef3c7"/>
+  <text x="134" y="310" font-size="22" fill="#d97706">☯</text>
+  <text x="180" y="300" font-size="16" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">八字排盘</text>
+  <text x="180" y="320" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">输入出生信息排盘</text>
+  <!-- Check mark -->
+  <circle cx="375" cy="290" r="10" fill="#10b981"/>
+  <polyline points="370,290 373,293 380,286" fill="none" stroke="#fff" stroke-width="2"/>
+
+  <!-- Card 2: MBTI (incomplete) -->
+  <rect x="420" y="260" width="300" height="100" rx="16" fill="#fff" filter="url(#cardShadow)"/>
+  <rect x="420" y="260" width="300" height="100" rx="16" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="440" y="280" width="48" height="48" rx="12" fill="#dbeafe"/>
+  <text x="454" y="310" font-size="22" fill="#2563eb">🧠</text>
+  <text x="500" y="300" font-size="16" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">MBTI 人格</text>
+  <text x="500" y="320" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">了解你的性格类型</text>
+  <circle cx="695" cy="290" r="10" fill="none" stroke="#d1d5db" stroke-width="2"/>
+
+  <!-- Card 3: 霍兰德 (completed) -->
+  <rect x="100" y="375" width="300" height="100" rx="16" fill="#fff" filter="url(#cardShadow)"/>
+  <rect x="100" y="375" width="300" height="100" rx="16" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="120" y="395" width="48" height="48" rx="12" fill="#ffe4e6"/>
+  <text x="134" y="425" font-size="22" fill="#e11d48">📊</text>
+  <text x="180" y="415" font-size="16" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">霍兰德测评</text>
+  <text x="180" y="435" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">发现职业兴趣</text>
+  <circle cx="375" cy="405" r="10" fill="#10b981"/>
+  <polyline points="370,405 373,408 380,401" fill="none" stroke="#fff" stroke-width="2"/>
+
+  <!-- Card 4: 天职测评 (incomplete) -->
+  <rect x="420" y="375" width="300" height="100" rx="16" fill="#fff" filter="url(#cardShadow)"/>
+  <rect x="420" y="375" width="300" height="100" rx="16" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="440" y="395" width="48" height="48" rx="12" fill="#e0e7ff"/>
+  <text x="454" y="425" font-size="22" fill="#6366f1">⭐</text>
+  <text x="500" y="415" font-size="16" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">天职测评</text>
+  <text x="500" y="435" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">找到你的使命</text>
+  <circle cx="695" cy="405" r="10" fill="none" stroke="#d1d5db" stroke-width="2"/>
+
+  <!-- Reports Card -->
+  <rect x="100" y="495" width="620" height="80" rx="16" fill="url(#reportsBg)" filter="url(#cardShadow)"/>
+  <rect x="100" y="495" width="620" height="80" rx="16" fill="none" stroke="#e0e7ff" stroke-width="1"/>
+  <text x="140" y="532" font-size="18" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">📊 我的报告</text>
+  <text x="140" y="555" font-size="13" fill="#64748b" font-family="system-ui, sans-serif">查看已生成的综合天赋分析报告</text>
+  <text x="620" y="540" font-size="14" fill="#6366f1" font-weight="500" font-family="system-ui, sans-serif">查看 →</text>
+</svg>

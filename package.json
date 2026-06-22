@@ -1,0 +1,21 @@
+{
+  "name": "talent-discovery",
+  "version": "1.0.0",
+  "description": "天赋测评系统 - 融合八字/紫微斗数/周易/MBTI/霍兰德的综合天赋分析平台",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "build": "cd frontend && npm run build && cd ../backend && npm run build",
+    "db:migrate": "cd backend && npx prisma migrate dev",
+    "db:seed": "cd backend && npx prisma db seed"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "puppeteer": "^25.1.0"
+  },
+  "dependencies": {
+    "pdfkit": "^0.19.1"
+  }
+}
