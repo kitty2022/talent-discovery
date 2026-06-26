@@ -111,7 +111,7 @@ export default function ReportsPage() {
                         📄
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-gray-800 group-hover:text-indigo-600 transition-colors text-sm">
+                        <h3 className="font-semibold text-gray-800 group-hover:text-gray-900 transition-colors text-sm">
                           {report.title}
                         </h3>
                         <p className="text-xs text-gray-400 mt-1 line-clamp-1">{report.summary}</p>
@@ -119,7 +119,7 @@ export default function ReportsPage() {
                           {new Date(report.createdAt).toLocaleString('zh-CN')}
                         </p>
                       </div>
-                      <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-indigo-400 transition-colors flex-shrink-0" />
+                      <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-gray-600 transition-colors flex-shrink-0" />
                     </div>
                   </Link>
                   <button onClick={() => handleDelete(report.id)}

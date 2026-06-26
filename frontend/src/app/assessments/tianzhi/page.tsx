@@ -7,18 +7,12 @@ import Questionnaire, { ThemeConfig } from '@/components/Questionnaire';
 import { Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
-/* —— 主题：紫罗兰 —— */
 const THEME: Partial<ThemeConfig> = {
   primary: '#2C2C2C',
   primaryLight: '#F5F3EF',
   accent: '#2C2C2C',
 };
 
-const TYPE_ICONS: Record<string, string> = {
-  creativity: '💡', expression: '🎯', research: '🔍',
-  execution: '⚡', leadership: '🚀', business: '💼',
-  service: '🤝', growth: '🌱',
-};
 const TYPE_NAMES: Record<string, string> = {
   creativity: '创造力', expression: '表达力', research: '研究力',
   execution: '执行力', leadership: '领导力', business: '商业力',
@@ -56,8 +50,8 @@ export default function TianZhiPage() {
   const handleRetest = () => { setResult(null); };
 
   if (loading) return (
-    <div className="min-h-screen flex items-center justify-center" style={{ background: '#FFFAF6' }}>
-      <div className="w-10 h-10 border-2 rounded-full animate-spin" style={{ borderColor: '#2C2C2C', borderTopColor: 'transparent' }} />
+    <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAFAF8' }}>
+      <div className="w-6 h-6 border rounded-full animate-spin" style={{ borderColor: '#2C2C2C', borderTopColor: 'transparent' }} />
     </div>
   );
 
@@ -71,56 +65,35 @@ export default function TianZhiPage() {
       resultView={result ? (
         <div className="max-w-lg mx-auto px-5" style={{ animation: 'fadeSlideUp 0.5s ease-out' }}>
           {/* 核心天赋 */}
-          <div className="rounded-3xl p-8 mb-6 text-center" style={{
-            background: '#2C2C2C',
-            boxShadow: '0 8px 32px rgba(139, 111, 168, 0.25)',
-          }}>
-            <div className="text-4xl mb-3">{TYPE_ICONS[Object.keys(result.dimensions || {})[0]] || '✨'}</div>
-            <h2 className="text-sm font-medium mb-1" style={{ color: 'rgba(255,255,255,0.7)' }}>你的核心天赋</h2>
-            <div className="text-3xl font-bold text-white mb-2">{result.topTalent}</div>
-            <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '13px' }}>这是你最自然的优势方向</p>
+          <div className="py-14 mb-10 text-center" style={{ borderBottom: '1px solid #E5E0D8' }}>
+            <div className="text-xs font-medium mb-4" style={{ color: '#B0A8A0', letterSpacing: '4px' }}>CORE TALENT</div>
+            <div className="text-4xl font-bold mb-3" style={{ fontFamily: "'Noto Serif SC', serif", color: '#2C2C2C', letterSpacing: '2px' }}>{result.topTalent}</div>
+            <div className="text-sm" style={{ color: '#8C8C8C' }}>你的首要天赋方向</div>
           </div>
 
           {/* 天赋排行 */}
-          <div className="rounded-3xl p-6 mb-4" style={{
-            background: '#FFFFFF',
-            boxShadow: '0 4px 24px rgba(180, 140, 120, 0.08)',
-          }}>
-            <h3 className="text-sm font-semibold mb-4" style={{ color: '#2C2C2C' }}>八大天赋维度排行</h3>
-            <div className="space-y-3">
+          <div className="mb-10">
+            <div className="text-xs font-medium mb-6" style={{ color: '#B0A8A0', letterSpacing: '2px' }}>八大天赋维度</div>
+            <div className="space-y-6">
               {result.topThree?.map((t: any, i: number) => (
-                <div key={t.dimension} className="flex items-center gap-3 p-2.5 rounded-xl" style={{ background: '#F0EAF5' }}>
-                  <span className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0"
-                    style={{ background: '#2C2C2C' }}>
-                    {i + 1}
-                  </span>
-                  <div className="flex-1">
-                    <div className="flex justify-between text-sm mb-1">
-                      <span className="font-medium" style={{ color: '#2C2C2C' }}>{t.dimension}</span>
-                      <span style={{ color: '#8C8C8C' }}>{t.score}%</span>
-                    </div>
-                    <div className="w-full rounded-full h-2" style={{ background: '#E0D8E8' }}>
-                      <div className="h-2 rounded-full transition-all"
-                        style={{ width: `${t.score}%`, background: '#2C2C2C' }} />
-                    </div>
+                <div key={t.dimension}>
+                  <div className="flex items-center justify-between text-sm mb-2">
+                    <span className="font-semibold" style={{ fontFamily: "'Noto Serif SC', serif", color: '#2C2C2C' }}>{t.dimension}</span>
+                    <span className="text-xs" style={{ color: '#8C8C8C' }}>{t.score}%</span>
+                  </div>
+                  <div style={{ background: '#F0F0F0', height: '2px' }}>
+                    <div style={{ width: `${t.score}%`, background: '#2C2C2C', height: '2px', transition: 'width 0.7s' }} />
                   </div>
                 </div>
               ))}
               {Object.entries(result.dimensions || {}).sort((a: any, b: any) => b[1] - a[1]).slice(3).map(([key, val]: any) => (
-                <div key={key} className="flex items-center gap-3 p-2">
-                  <span className="w-7 h-7 text-sm flex items-center justify-center flex-shrink-0"
-                    style={{ color: '#B0A8A0' }}>
-                    {TYPE_ICONS[key] || '•'}
-                  </span>
-                  <div className="flex-1">
-                    <div className="flex justify-between text-sm mb-1">
-                      <span style={{ color: '#8C8C8C' }}>{TYPE_NAMES[key] || key}</span>
-                      <span style={{ color: '#B0A8A0' }}>{val}%</span>
-                    </div>
-                    <div className="w-full rounded-full h-1.5" style={{ background: '#F0EDEA' }}>
-                      <div className="h-1.5 rounded-full transition-all"
-                        style={{ width: `${val}%`, background: '#D0D0D0' }} />
-                    </div>
+                <div key={key}>
+                  <div className="flex items-center justify-between text-sm mb-2">
+                    <span style={{ color: '#8C8C8C' }}>{TYPE_NAMES[key] || key}</span>
+                    <span className="text-xs" style={{ color: '#B0A8A0' }}>{val}%</span>
+                  </div>
+                  <div style={{ background: '#F0F0F0', height: '2px' }}>
+                    <div style={{ width: `${val}%`, background: '#E0E0E0', height: '2px', transition: 'width 0.7s' }} />
                   </div>
                 </div>
               ))}
@@ -129,21 +102,25 @@ export default function TianZhiPage() {
 
           {/* 解读 */}
           {result.recommendation && (
-            <div className="rounded-3xl p-6 mb-6" style={{
-              background: 'linear-gradient(135deg, #F0EAF5, #F8F4FC)',
-              border: '1px solid #D8D0E8',
-            }}>
-              <h3 className="text-sm font-semibold mb-3" style={{ color: '#2C2C2C' }}>📋 天赋解读</h3>
-              <div className="text-sm leading-relaxed whitespace-pre-line" style={{ color: '#8C8C8C' }}>
-                {result.recommendation}
+            <div className="mb-8">
+              <div className="text-xs font-medium mb-5" style={{ color: '#B0A8A0', letterSpacing: '2px' }}>天赋解读</div>
+              <div className="leading-relaxed" style={{ color: '#8C8C8C', lineHeight: '2', fontSize: '13px' }}>
+                {result.recommendation.split('\n').map((line: string, li: number) => {
+                  const t = line.trim();
+                  if (!t) return <div key={li} className="h-3" />;
+                  if (/^[^\x00-\x7F]/.test(t) && t.length < 30) {
+                    return <div key={li} className="font-semibold mt-5 mb-2" style={{ fontSize: '14px', color: '#2C2C2C' }}>{t}</div>;
+                  }
+                  return <div key={li} style={{ color: '#8C8C8C' }}>{t}</div>;
+                })}
               </div>
             </div>
           )}
 
-          <div className="flex justify-center gap-4 pb-8">
+          <div className="flex justify-center gap-4 pb-8 pt-2">
             <button onClick={handleRetest}
               className="px-6 py-3 text-xs tracking-[1px] transition-all hover:opacity-60"
-              style={{ background: '#F5F3EF', color: '#2C2C2C' }}>
+              style={{ color: '#8C8C8C' }}>
               重新测评
             </button>
             <Link href="/dashboard"
@@ -159,9 +136,9 @@ export default function TianZhiPage() {
       renderQuestion={(q, _idx, answer, onAnswer) => (
         <div className="space-y-3">
           <div className="text-xs mb-2" style={{ color: '#B0A8A0' }}>
-            {q.type === 'behavior' && '📌 基于过去行为的判断'}
-            {q.type === 'ability' && '💪 基于他人对你的认知'}
-            {q.type === 'energy' && '⚡ 基于你的能量来源'}
+            {q.type === 'behavior' && '基于过去行为的判断'}
+            {q.type === 'ability' && '基于他人对你的认知'}
+            {q.type === 'energy' && '基于你的能量来源'}
           </div>
           {q.options?.map((opt: any) => {
             const isSelected = answer?.label === opt.label;

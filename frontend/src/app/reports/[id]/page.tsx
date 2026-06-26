@@ -32,10 +32,14 @@ const SECTION_TABS = [
   { key: '能力画像', icon: '📊' },
   { key: '职业发展建议', icon: '🧭' },
   { key: '风险提醒', icon: '⚠️' },
-  { key: '数据依据', icon: '📋' },
+  { key: '先天特质', icon: '📋' },
 ];
 
 function getTabIcon(title: string): string {
+  if (title.includes('先天')) return '📋';
+  if (title.includes('MBTI')) return '📋';
+  if (title.includes('霍兰德')) return '📋';
+  if (title.includes('天赋')) return '📋';
   for (const t of SECTION_TABS) { if (title.includes(t.key)) return t.icon; }
   return '📄';
 }
@@ -125,72 +129,67 @@ export default function ReportDetailPage({ params }: { params: Promise<{ id: str
           </div>
         </div>
 
-        {/* Navigation tabs */}
-        <div className="flex gap-1.5 overflow-x-auto pb-3 mb-6 scrollbar-hide" style={{ borderBottom: '1px solid', borderColor: S.border }}>
+        {/* Navigation tabs — 极简下划线 */}
+        <div className="flex gap-4 overflow-x-auto mb-8 scrollbar-hide" style={{ borderBottom: '1px solid #E5E0D8' }}>
           {report.sections.map((section, i) => {
-            const icon = getTabIcon(section.title);
             const isActive = activeSection === i;
             return (
               <button key={i} onClick={() => setActiveSection(i)}
-                className="flex-shrink-0 px-4 py-2 text-xs tracking-[1px] transition-all"
+                className="flex-shrink-0 pb-2 text-xs tracking-[2px] transition-all"
                 style={{
-                  color: isActive ? S.text : S.muted,
-                  borderBottom: isActive ? `2px solid ${S.text}` : '2px solid transparent',
+                  color: isActive ? '#2C2C2C' : '#B0A8A0',
+                  borderBottom: isActive ? '1.5px solid #2C2C2C' : '1.5px solid transparent',
                   marginBottom: '-1px',
                 }}>
-                {icon} {section.title}
+                {section.title}
               </button>
             );
           })}
         </div>
 
-        {/* Active section */}
+        {/* Active section — 无边框 */}
         {report.sections.map((section, i) => (
           <div key={i}
             className={`transition-all duration-300 ${activeSection === i ? 'block' : 'hidden'}`}
             style={{ animation: activeSection === i ? 'fadeSlideUp 0.3s ease-out' : 'none' }}>
-            <div className="p-6 md:p-8" style={{ background: S.cardBg, border: '1px solid', borderColor: S.border }}>
-              <h2 className="text-lg font-bold mb-4" style={{ fontFamily: "'Noto Serif SC', serif", color: S.text }}>{section.title}</h2>
+            <div className="py-2">
+              <h2 className="text-lg font-bold mb-5" style={{ fontFamily: "'Noto Serif SC', serif", color: '#2C2C2C' }}>{section.title}</h2>
               {section.subtitle && (
                 <p className="text-sm mb-4" style={{ color: S.muted }}>{section.subtitle}</p>
               )}
-              <div className="leading-relaxed" style={{ color: S.text, lineHeight: '1.9', fontSize: '13px' }}>
+              <div className="leading-relaxed" style={{ color: '#8C8C8C', lineHeight: '2', fontSize: '13px' }}>
                 {section.content.split('\n').map((line, li) => {
                   const t = line.trim();
                   if (!t) return <div key={li} className="h-2" />;
                   // ━━━ 分隔线
                   if (/^━+$/.test(t)) {
-                    return <div key={li} className="my-4" style={{ height: '1px', background: S.border }} />;
+                    return <div key={li} className="my-5" style={{ height: '1px', background: '#E5E0D8' }} />;
                   }
-                  // ▎ 开头 → 小节标题
+                  // ▎ 开头 → 小节标题（衬线）
                   if (t.startsWith('▎')) {
-                    return <div key={li} className="font-semibold mt-5 mb-2 pl-3" style={{ fontSize: '14px', borderLeft: '2px solid', borderColor: S.text, color: S.text }}>{t.slice(1)}</div>;
+                    return <div key={li} className="font-semibold mt-6 mb-3" style={{ fontSize: '14px', fontFamily: "'Noto Serif SC', serif", color: '#2C2C2C' }}>{t.slice(1)}</div>;
                   }
                   // ↳ 开头 → 培养建议
                   if (t.startsWith('↳')) {
-                    return <div key={li} className="pl-3 text-xs" style={{ color: S.muted, fontStyle: 'italic' }}>{t}</div>;
+                    return <div key={li} className="pl-3 text-xs" style={{ color: '#B0A8A0', fontStyle: 'italic' }}>{t}</div>;
                   }
                   // ▸ 开头 → 列表项
                   if (t.startsWith('▸')) {
-                    return <div key={li} className="pl-4" style={{ color: S.muted }}>• {t.slice(1).trim()}</div>;
+                    return <div key={li} className="pl-4" style={{ color: '#8C8C8C' }}>· {t.slice(1).trim()}</div>;
                   }
-                  // 以 emoji 开头
+                  // 以 emoji 开头的短行（≤28字）→ 大标题
                   const m = t.match(/^([^\x00-\x7F]+)\s*(.*)/);
                   if (m) {
-                    const emoji = m[1], rest = m[2];
-                    // 短内容（≤30字）→ 大标题（15px 加粗）
-                    if (t.length < 30) {
-                      return <div key={li} className="font-bold mt-5 mb-1" style={{ fontSize: '15px', color: S.text, letterSpacing: '0.3px' }}>{emoji}<span className="font-semibold" style={{ fontSize: '14px' }}>{rest}</span></div>;
+                    if (t.length < 28) {
+                      return <div key={li} className="font-bold mt-6 mb-2" style={{ fontSize: '15px', fontFamily: "'Noto Serif SC', serif", color: '#2C2C2C', letterSpacing: '0.5px' }}>{m[2] || m[1]}</div>;
                     }
-                    // 长内容 → emoji 加粗 + 正文
-                    return <div key={li} style={{ color: S.muted }}><span className="font-semibold" style={{ color: S.text }}>{emoji}</span>{rest}</div>;
+                    return <div key={li} style={{ color: '#8C8C8C' }}><span className="font-semibold" style={{ color: '#2C2C2C' }}>{m[1]}</span>{m[2]}</div>;
                   }
-                  // 包含（数字分）的能力名称行 → 标题
+                  // 包含（数字分）的能力名称行
                   if (/（\d+分）/.test(t)) {
-                    return <div key={li} className="font-semibold mt-3 mb-1" style={{ fontSize: '14px', color: S.text }}>{t}</div>;
+                    return <div key={li} className="font-semibold mt-4 mb-1" style={{ fontSize: '14px', color: '#2C2C2C' }}>{t}</div>;
                   }
-                  // 普通正文
-                  return <div key={li} className="leading-relaxed" style={{ color: S.muted }}>{t}</div>;
+                  return <div key={li} className="leading-relaxed" style={{ color: '#8C8C8C' }}>{t}</div>;
                 })}
               </div>
 
@@ -228,11 +227,11 @@ export default function ReportDetailPage({ params }: { params: Promise<{ id: str
                 <div className="mt-6">
                   {/* SVG 雷达图 */}
                   <div className="flex justify-center mb-8">
-                    <svg width="260" height="260" viewBox="0 0 260 260" className="max-w-full">
+                    <svg width="280" height="280" viewBox="0 0 300 300" className="max-w-full">
                       {(() => {
                         const entries = Object.entries(section.data) as [string, number][];
                         const n = entries.length;
-                        const cx = 130, cy = 130, r = 100;
+                        const cx = 150, cy = 150, r = 100;
                         const colors: Record<string, string> = {
                           '创造力': '#8C8C8C', '分析力': '#5B7B8C', '表达力': '#2C2C2C',
                           '领导力': '#2C2C2C', '执行力': '#C9A96E', '学习力': '#2C2C2C',
@@ -276,10 +275,10 @@ export default function ReportDetailPage({ params }: { params: Promise<{ id: str
                             {/* 标签 */}
                             {entries.map(([key, val], i) => {
                               const label = key.replace('力', '');
-                              const lp = getPoint(i, r + 26);
+                              const lp = getPoint(i, r + 38);
                               return (
                                 <text key={i} x={lp.x} y={lp.y} textAnchor="middle" dominantBaseline="middle"
-                                  fontSize="12" fontWeight="600" fill="#64748b">
+                                  fontSize="13" fontWeight="600" fill="#8C8C8C">
                                   {label}
                                 </text>
                               );
