@@ -24,33 +24,20 @@ interface ReportData {
   createdAt: string;
 }
 
-const SECTION_ICONS: Record<string, any> = {
-  '核心结论': Sparkles,
-  '形成原因': Brain,
-  '能力画像': BarChart3,
-  '职业发展建议': Star,
-  '发展路径': FileText,
-  '风险提醒': FileText,
-  '数据依据': FileText,
-};
+const S = { bg: '#FAFAF8', text: '#2C2C2C', muted: '#8C8C8C', border: '#E5E0D8', cardBg: '#FFFFFF' };
 
-const SECTION_COLORS: Record<string, string> = {
-  '核心结论': 'bg-indigo-50 border-indigo-200 text-indigo-700',
-  '形成原因': 'bg-blue-50 border-blue-200 text-blue-700',
-  '能力画像': 'bg-teal-50 border-teal-200 text-teal-700',
-  '职业发展建议': 'bg-emerald-50 border-emerald-200 text-emerald-700',
-  '发展路径': 'bg-amber-50 border-amber-200 text-amber-700',
-  '风险提醒': 'bg-rose-50 border-rose-200 text-rose-700',
-  '数据依据': 'bg-gray-50 border-gray-200 text-gray-600',
-};
+const SECTION_TABS = [
+  { key: '核心结论', icon: '✨' },
+  { key: '形成原因', icon: '🧠' },
+  { key: '能力画像', icon: '📊' },
+  { key: '职业发展建议', icon: '🧭' },
+  { key: '风险提醒', icon: '⚠️' },
+  { key: '数据依据', icon: '📋' },
+];
 
-function getSectionStyle(title: string): { icon: any; color: string } {
-  for (const [key, icon] of Object.entries(SECTION_ICONS)) {
-    if (title.includes(key)) {
-      return { icon, color: SECTION_COLORS[key] || 'bg-gray-50 border-gray-200 text-gray-700' };
-    }
-  }
-  return { icon: FileText, color: 'bg-gray-50 border-gray-200 text-gray-700' };
+function getTabIcon(title: string): string {
+  for (const t of SECTION_TABS) { if (title.includes(t.key)) return t.icon; }
+  return '📄';
 }
 
 export default function ReportDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -90,37 +77,35 @@ export default function ReportDetailPage({ params }: { params: Promise<{ id: str
   }, [id, router]);
 
   if (loading) return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="animate-spin w-8 h-8 border-2 border-indigo-600 border-t-transparent rounded-full" />
+    <div className="min-h-screen flex items-center justify-center" style={{ background: S.bg }}>
+      <div className="animate-spin w-8 h-8 border-2 rounded-full" style={{ borderColor: S.text, borderTopColor: 'transparent' }} />
     </div>
   );
 
   if (!report) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50/50">
+    <div style={{ minHeight: '100vh', background: S.bg }}>
       {/* Header */}
-      <nav className="bg-white border-b border-gray-100 sticky top-0 z-50">
+      <nav className="sticky top-0 z-50" style={{ background: 'rgba(255,250,246,0.85)', backdropFilter: 'blur(12px)', borderBottom: '1px solid rgba(180,140,120,0.08)' }}>
         <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link href="/reports" className="text-gray-400 hover:text-gray-600">
+            <Link href="/reports" style={{ color: S.muted }}>
               <ArrowLeft className="w-5 h-5" />
             </Link>
-            <FileText className="w-5 h-5 text-indigo-500" />
-            <span className="font-semibold truncate">{report.title}</span>
+            <FileText className="w-5 h-5" style={{ color: S.text }} />
+            <span className="font-semibold truncate" style={{ color: S.text }}>{report.title}</span>
           </div>
           <div className="flex items-center gap-3">
-            <button
-              onClick={handleShare}
-              className="flex items-center gap-2 text-gray-500 hover:text-indigo-600 text-sm transition-colors"
-            >
-              {shareCopied ? <Check className="w-4 h-4 text-green-500" /> : <Share2 className="w-4 h-4" />}
+            <button onClick={handleShare}
+              className="flex items-center gap-2 text-sm transition-all px-3 py-1.5"
+              style={{ color: S.muted, background: S.bg }}>
+              {shareCopied ? <Check className="w-4 h-4" style={{ color: '#4CAF50' }} /> : <Share2 className="w-4 h-4" />}
               {shareCopied ? '已复制' : '分享'}
             </button>
-            <button
-              onClick={() => window.print()}
-              className="flex items-center gap-2 text-gray-500 hover:text-gray-700 text-sm"
-            >
+            <button onClick={() => window.print()}
+              className="flex items-center gap-2 text-sm transition-all px-3 py-1.5"
+              style={{ color: S.muted, background: S.bg }}>
               <Download className="w-4 h-4" />
               导出
             </button>
@@ -130,30 +115,30 @@ export default function ReportDetailPage({ params }: { params: Promise<{ id: str
 
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Title section */}
-        <div className="bg-gradient-to-br from-indigo-600 to-purple-700 rounded-2xl p-8 text-white mb-6 shadow-xl">
-          <h1 className="text-2xl font-bold mb-2">{report.title}</h1>
-          <p className="text-indigo-200 text-sm">{report.summary}</p>
-          <p className="text-indigo-300 text-xs mt-2">
-            生成时间：{new Date(report.createdAt).toLocaleString('zh-CN')}
-          </p>
+        <div className="p-8 md:p-10 mb-6" style={{ background: S.text }}>
+          <h1 className="text-xl md:text-2xl font-bold mb-3 text-white" style={{ fontFamily: "'Noto Serif SC', serif" }}>{report.title}</h1>
+          <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.7)' }}>{report.summary}</p>
+          <div className="mt-4 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+            <span className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>
+              {new Date(report.createdAt).toLocaleString('zh-CN')}
+            </span>
+          </div>
         </div>
 
         {/* Navigation tabs */}
-        <div className="flex gap-2 overflow-x-auto pb-2 mb-6">
+        <div className="flex gap-1.5 overflow-x-auto pb-3 mb-6 scrollbar-hide" style={{ borderBottom: '1px solid', borderColor: S.border }}>
           {report.sections.map((section, i) => {
-            const { icon: Icon, color } = getSectionStyle(section.title);
+            const icon = getTabIcon(section.title);
+            const isActive = activeSection === i;
             return (
-              <button
-                key={i}
-                onClick={() => setActiveSection(i)}
-                className={`flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all border ${
-                  activeSection === i
-                    ? color + ' shadow-sm'
-                    : 'bg-white border-gray-100 text-gray-600 hover:border-gray-200'
-                }`}
-              >
-                <Icon className="w-4 h-4" />
-                {section.title}
+              <button key={i} onClick={() => setActiveSection(i)}
+                className="flex-shrink-0 px-4 py-2 text-xs tracking-[1px] transition-all"
+                style={{
+                  color: isActive ? S.text : S.muted,
+                  borderBottom: isActive ? `2px solid ${S.text}` : '2px solid transparent',
+                  marginBottom: '-1px',
+                }}>
+                {icon} {section.title}
               </button>
             );
           })}
@@ -161,70 +146,175 @@ export default function ReportDetailPage({ params }: { params: Promise<{ id: str
 
         {/* Active section */}
         {report.sections.map((section, i) => (
-          <div
-            key={i}
+          <div key={i}
             className={`transition-all duration-300 ${activeSection === i ? 'block' : 'hidden'}`}
-          >
-            <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-              <h2 className="text-xl font-bold mb-2">{section.title}</h2>
+            style={{ animation: activeSection === i ? 'fadeSlideUp 0.3s ease-out' : 'none' }}>
+            <div className="p-6 md:p-8" style={{ background: S.cardBg, border: '1px solid', borderColor: S.border }}>
+              <h2 className="text-lg font-bold mb-4" style={{ fontFamily: "'Noto Serif SC', serif", color: S.text }}>{section.title}</h2>
               {section.subtitle && (
-                <p className="text-indigo-600 font-medium mb-4">{section.subtitle}</p>
+                <p className="text-sm mb-4" style={{ color: S.muted }}>{section.subtitle}</p>
               )}
-              <div className="text-gray-700 leading-relaxed whitespace-pre-line text-[15px]">
-                {section.content}
+              <div className="leading-relaxed" style={{ color: S.text, lineHeight: '1.9', fontSize: '13px' }}>
+                {section.content.split('\n').map((line, li) => {
+                  const t = line.trim();
+                  if (!t) return <div key={li} className="h-2" />;
+                  // ━━━ 分隔线
+                  if (/^━+$/.test(t)) {
+                    return <div key={li} className="my-4" style={{ height: '1px', background: S.border }} />;
+                  }
+                  // ▎ 开头 → 小节标题
+                  if (t.startsWith('▎')) {
+                    return <div key={li} className="font-semibold mt-5 mb-2 pl-3" style={{ fontSize: '14px', borderLeft: '2px solid', borderColor: S.text, color: S.text }}>{t.slice(1)}</div>;
+                  }
+                  // ↳ 开头 → 培养建议
+                  if (t.startsWith('↳')) {
+                    return <div key={li} className="pl-3 text-xs" style={{ color: S.muted, fontStyle: 'italic' }}>{t}</div>;
+                  }
+                  // ▸ 开头 → 列表项
+                  if (t.startsWith('▸')) {
+                    return <div key={li} className="pl-4" style={{ color: S.muted }}>• {t.slice(1).trim()}</div>;
+                  }
+                  // 以 emoji 开头
+                  const m = t.match(/^([^\x00-\x7F]+)\s*(.*)/);
+                  if (m) {
+                    const emoji = m[1], rest = m[2];
+                    // 短内容（≤30字）→ 大标题（15px 加粗）
+                    if (t.length < 30) {
+                      return <div key={li} className="font-bold mt-5 mb-1" style={{ fontSize: '15px', color: S.text, letterSpacing: '0.3px' }}>{emoji}<span className="font-semibold" style={{ fontSize: '14px' }}>{rest}</span></div>;
+                    }
+                    // 长内容 → emoji 加粗 + 正文
+                    return <div key={li} style={{ color: S.muted }}><span className="font-semibold" style={{ color: S.text }}>{emoji}</span>{rest}</div>;
+                  }
+                  // 包含（数字分）的能力名称行 → 标题
+                  if (/（\d+分）/.test(t)) {
+                    return <div key={li} className="font-semibold mt-3 mb-1" style={{ fontSize: '14px', color: S.text }}>{t}</div>;
+                  }
+                  // 普通正文
+                  return <div key={li} className="leading-relaxed" style={{ color: S.muted }}>{t}</div>;
+                })}
               </div>
 
-              {/* Chart data visualization */}
+              {/* 霍兰德柱状图 — 百分比适配 */}
               {section.data && section.type === 'text' && section.title.includes('霍兰德') && (
-                <div className="mt-6 grid grid-cols-6 gap-2">
-                  {Object.entries(section.data).map(([key, val]: any) => {
-                    const colors: Record<string, string> = {
-                      R: '#10b981', I: '#3b82f6', A: '#f59e0b',
-                      S: '#ec4899', E: '#8b5cf6', C: '#6b7280',
-                    };
-                    const labels: Record<string, string> = {
-                      R: '现实', I: '研究', A: '艺术', S: '社会', E: '企业', C: '常规',
-                    };
-                    return (
-                      <div key={key} className="text-center">
-                        <div className="text-xs text-gray-500 mb-1">{labels[key] || key}</div>
-                        <div className="relative h-24 bg-gray-50 rounded-lg overflow-hidden">
-                          <div
-                            className="absolute bottom-0 w-full rounded-t-lg transition-all duration-700"
-                            style={{ height: `${(val / 30) * 100}%`, backgroundColor: colors[key] || '#666' }}
-                          />
+                <div className="mt-6">
+                  <h4 className="text-sm font-semibold text-gray-600 mb-4">六维得分</h4>
+                  <div className="grid grid-cols-6 gap-2">
+                    {Object.entries(section.data).map(([key, val]: any) => {
+                      const palette: Record<string, string> = {
+                        R: '#5B7B8C', I: '#7CA5B8', A: '#C9A96E',
+                        S: '#2C2C2C', E: '#2C2C2C', C: '#9A9A9A',
+                      };
+                      const labels: Record<string, string> = {
+                        R: '执行', I: '分析', A: '创造', S: '共情', E: '影响', C: '结构',
+                      };
+                      const pct = typeof val === 'number' && val <= 1 ? val * 100 : val;
+                      return (
+                        <div key={key} className="text-center">
+                          <div className="text-xs font-medium mb-1.5" style={{ color: S.muted }}>{labels[key] || key}</div>
+                          <div className="relative h-24" style={{ background: S.bg }}>
+                            <div className="absolute bottom-0 w-full transition-all duration-700"
+                              style={{ height: `${Math.min(pct, 100)}%`, backgroundColor: palette[key] || '#8C8C8C' }} />
+                          </div>
+                          <div className="text-xs font-semibold mt-1.5" style={{ color: S.text }}>{pct}%</div>
                         </div>
-                        <div className="text-xs font-medium mt-1">{val}</div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
               )}
 
-              {/* 能力画像可视化 */}
+              {/* 能力画像可视化 — 雷达图 + 条图 */}
               {section.data && section.title === '能力画像' && (
-                <div className="mt-6 space-y-3">
-                  {Object.entries(section.data).map(([key, val]: any) => {
-                    const colors: Record<string, string> = {
-                      '创造力': '#8b5cf6', '分析力': '#3b82f6', '表达力': '#f59e0b',
-                      '领导力': '#ef4444', '执行力': '#10b981', '学习力': '#06b6d4',
-                    };
-                    const pct = Math.min(val, 100);
-                    return (
-                      <div key={key} className="flex items-center gap-3">
-                        <div className="w-16 text-sm font-medium text-gray-700 text-right">{key}</div>
-                        <div className="flex-1 bg-gray-100 rounded-full h-5 overflow-hidden">
-                          <div
-                            className="h-full rounded-full transition-all duration-700 flex items-center justify-end pr-2 text-xs text-white font-medium"
-                            style={{ width: `${pct}%`, backgroundColor: colors[key] || '#6366f1' }}
-                          >
-                            {pct >= 30 ? `${val}分` : ''}
+                <div className="mt-6">
+                  {/* SVG 雷达图 */}
+                  <div className="flex justify-center mb-8">
+                    <svg width="260" height="260" viewBox="0 0 260 260" className="max-w-full">
+                      {(() => {
+                        const entries = Object.entries(section.data) as [string, number][];
+                        const n = entries.length;
+                        const cx = 130, cy = 130, r = 100;
+                        const colors: Record<string, string> = {
+                          '创造力': '#8C8C8C', '分析力': '#5B7B8C', '表达力': '#2C2C2C',
+                          '领导力': '#2C2C2C', '执行力': '#C9A96E', '学习力': '#2C2C2C',
+                        };
+                        const angleStep = (2 * Math.PI) / n;
+                        const getPoint = (i: number, radius: number) => ({
+                          x: cx + radius * Math.sin(angleStep * i),
+                          y: cy - radius * Math.cos(angleStep * i),
+                        });
+
+                        // 背景网格（3层）
+                        const grid = [0.33, 0.66, 1];
+                        const gridPaths = grid.map(level => {
+                          const pts = Array.from({length: n}, (_, i) => getPoint(i, r * level));
+                          return pts.map((p, j) => `${j === 0 ? 'M' : 'L'}${p.x},${p.y}`).join(' ') + 'Z';
+                        });
+
+                        // 数据多边形
+                        const dataPts = entries.map(([, val], i) => getPoint(i, r * (Math.min(val, 100) / 100)));
+                        const dataPath = dataPts.map((p, j) => `${j === 0 ? 'M' : 'L'}${p.x},${p.y}`).join(' ') + 'Z';
+
+                        // 轴线
+                        const axes = Array.from({length: n}, (_, i) => getPoint(i, r + 18));
+
+                        return (
+                          <g>
+                            {/* 背景网格 */}
+                            {gridPaths.map((path, gi) => (
+                              <path key={gi} d={path} fill="none" stroke="#e5e7eb" strokeWidth="1" />
+                            ))}
+                            {/* 轴线 */}
+                            {axes.map((p, i) => (
+                              <line key={i} x1={cx} y1={cy} x2={getPoint(i, r).x} y2={getPoint(i, r).y} stroke="#e5e7eb" strokeWidth="1" />
+                            ))}
+                            {/* 数据区域 */}
+                            <path d={dataPath} fill="rgba(44,44,44,0.08)" stroke="#2C2C2C" strokeWidth="1.5" />
+                            {/* 数据点 */}
+                            {dataPts.map((p, i) => (
+                              <circle key={i} cx={p.x} cy={p.y} r="5" fill={colors[entries[i][0]] || '#6366f1'} stroke="#fff" strokeWidth="2" />
+                            ))}
+                            {/* 标签 */}
+                            {entries.map(([key, val], i) => {
+                              const label = key.replace('力', '');
+                              const lp = getPoint(i, r + 26);
+                              return (
+                                <text key={i} x={lp.x} y={lp.y} textAnchor="middle" dominantBaseline="middle"
+                                  fontSize="12" fontWeight="600" fill="#64748b">
+                                  {label}
+                                </text>
+                              );
+                            })}
+                          </g>
+                        );
+                      })()}
+                    </svg>
+                  </div>
+
+                  {/* 水平条图 */}
+                  <div className="space-y-2.5">
+                    {Object.entries(section.data).map(([key, val]: any) => {
+                      const palette: Record<string, string> = {
+                        '创造力': '#8C8C8C', '分析力': '#5B7B8C', '表达力': '#2C2C2C',
+                        '领导力': '#2C2C2C', '执行力': '#C9A96E', '学习力': '#2C2C2C',
+                      };
+                      const pct = Math.min(val, 100);
+                      const level = pct >= 65 ? '优势' : pct >= 40 ? '普通' : '待提升';
+                      return (
+                        <div key={key} className="flex items-center gap-3">
+                          <div className="w-16 text-xs font-medium text-right flex-shrink-0" style={{ color: S.muted }}>{key}</div>
+                          <div className="flex-1" style={{ background: S.bg }}>
+                            <div className="h-3 transition-all duration-700 flex items-center justify-end pr-2 text-[10px] text-white"
+                              style={{ width: `${pct}%`, backgroundColor: palette[key] || '#8C8C8C' }}>
+                              {pct >= 25 ? `${val}分` : ''}
+                            </div>
                           </div>
+                          <span className="text-[10px] font-medium flex-shrink-0 w-8" style={{ color: S.muted }}>
+                            {level}
+                          </span>
                         </div>
-                        <div className="w-10 text-sm text-gray-500">{val}分</div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
               )}
 
@@ -233,16 +323,14 @@ export default function ReportDetailPage({ params }: { params: Promise<{ id: str
                 <div className="mt-6 flex gap-4 justify-center">
                   {Object.entries(section.data).map(([wx, count]: any) => (
                     <div key={wx} className="text-center">
-                      <div
-                        className="w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-lg"
+                      <div className="w-14 h-14 flex items-center justify-center text-sm font-bold"
                         style={{
-                          backgroundColor: ({木: '#10b981', 火: '#f59e0b', 土: '#8B7355', 金: '#f59e0b', 水: '#3b82f6'} as Record<string, string>)[wx as string] || '#666',
-                          opacity: 0.5 + count * 0.15,
-                        }}
-                      >
+                          background: '#F5F3EF', color: '#2C2C2C',
+                          border: '1px solid #E5E0D8',
+                        }}>
                         {wx}
                       </div>
-                      <div className="text-xs text-gray-500 mt-1">{count}分</div>
+                      <div className="text-xs mt-1" style={{ color: S.muted }}>{count}分</div>
                     </div>
                   ))}
                 </div>
@@ -252,10 +340,10 @@ export default function ReportDetailPage({ params }: { params: Promise<{ id: str
               {section.type === 'list' && section.data && Array.isArray(section.data) && (
                 <div className="mt-6 flex gap-2 overflow-x-auto pb-2">
                   {section.data.map((item: any, idx: number) => (
-                    <div key={idx} className="flex-shrink-0 bg-gray-50 rounded-xl p-4 text-center min-w-[90px]">
-                      <div className="text-xs text-gray-500">{item.ageStart}-{item.ageEnd}岁</div>
-                      <div className="text-lg font-bold text-gray-800 my-1">{item.pillar}</div>
-                      <div className="text-xs text-gray-400">{item.description}</div>
+                    <div key={idx} className="flex-shrink-0 p-4 text-center min-w-[90px]" style={{ background: S.bg, border: '1px solid', borderColor: S.border }}>
+                      <div className="text-xs" style={{ color: S.muted }}>{item.ageStart}-{item.ageEnd}岁</div>
+                      <div className="text-base font-semibold my-1" style={{ color: S.text }}>{item.pillar}</div>
+                      <div className="text-xs" style={{ color: S.muted }}>{item.description}</div>
                     </div>
                   ))}
                 </div>
@@ -266,7 +354,7 @@ export default function ReportDetailPage({ params }: { params: Promise<{ id: str
 
         {/* Footer */}
         <div className="text-center mt-8 text-xs text-gray-400">
-          <p>天赋星鉴 · 本报告仅供参考，请理性看待分析结果</p>
+          <p>镜相 · 本报告仅供参考</p>
         </div>
       </div>
     </div>

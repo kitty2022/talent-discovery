@@ -34,7 +34,7 @@ export default function ForgotPasswordPage() {
           <Link href="/" className="inline-flex items-center gap-2 mb-6">
             <Sparkles className="w-6 h-6 text-indigo-500" />
             <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              天赋星鉴
+              镜相
             </span>
           </Link>
           <h1 className="text-2xl font-bold">忘记密码</h1>

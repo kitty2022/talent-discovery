@@ -77,13 +77,13 @@ export function calculateTalent(answers: TalentAnswer[]): TalentResult {
   const descParts = topDims.map((d) => {
     const name = DIM_NAMES[d] || d;
     const desc = DIM_DESCRIPTIONS[d] || '';
-    return `**${name}**（${dimensions[d]}%）\n${desc}`;
+    return `${name}（${dimensions[d]}%）\n${desc}`;
   });
 
   const description = `你的核心天赋是「${topTalent}」。\n\n` +
     '以下是你最具优势的三个天赋维度：\n\n' +
     descParts.join('\n\n') +
-    '\n\n💡 **使用建议**：优先在发挥你核心天赋的领域中选择发展方向，同时有意识地培养其他维度以形成能力互补。';
+    '\n\n💡 使用建议：优先在发挥你核心天赋的领域中选择发展方向，同时有意识地培养其他维度以形成能力互补。';
 
   return {
     dimensions,

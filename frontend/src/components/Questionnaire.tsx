@@ -1,7 +1,26 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowLeft, ChevronRight } from 'lucide-react';
+
+/* ========================================================
+   通用测评问卷组件 — 配色通过 theme 属性自定义
+   ======================================================== */
+
+export interface ThemeConfig {
+  primary: string;
+  primaryLight: string;
+  accent: string;
+  gradient?: string;
+  shadow?: string;
+}
+
+const DEFAULT_THEME: ThemeConfig = {
+  primary: '#2C2C2C',
+  primaryLight: '#F5F3EF',
+  accent: '#B85C3A',
+};
 
 interface Question {
   id: number;
@@ -15,7 +34,7 @@ interface Question {
 interface QuestionnaireProps {
   title: string;
   icon: React.ReactNode;
-  color: string;
+  theme?: Partial<ThemeConfig>;
   questions: Question[];
   renderQuestion: (q: Question, index: number, answer: any, onAnswer: (val: any) => void) => React.ReactNode;
   onSubmit: (answers: any[]) => Promise<void>;
@@ -25,8 +44,10 @@ interface QuestionnaireProps {
 }
 
 export default function Questionnaire({
-  title, icon, color, questions, renderQuestion, onSubmit, onBack, resultView, isCompleted,
+  title, icon, theme: themeProp, questions, renderQuestion,
+  onSubmit, onBack, resultView, isCompleted,
 }: QuestionnaireProps) {
+  const theme = { ...DEFAULT_THEME, ...themeProp } as ThemeConfig;
   const [step, setStep] = useState<'intro' | 'quiz' | 'result'>('intro');
   const [answers, setAnswers] = useState<any[]>([]);
   const [currentQ, setCurrentQ] = useState(0);
@@ -37,6 +58,7 @@ export default function Questionnaire({
     const newAnswers = [...answers];
     newAnswers[currentQ] = { questionId: questions[currentQ].id, ...val };
     setAnswers(newAnswers);
+    setError('');
   };
 
   const nextQuestion = () => {
@@ -68,24 +90,17 @@ export default function Questionnaire({
     }
   };
 
+  // ---------- 结果页 ----------
   if (isCompleted || step === 'result') {
     return (
-      <div className="min-h-screen bg-gray-50/50">
-        <nav className="bg-white border-b border-gray-100 sticky top-0 z-50">
-          <div className="max-w-3xl mx-auto px-4 h-16 flex items-center gap-4">
-            <button onClick={onBack} className="text-gray-400 hover:text-gray-600">
-              <ArrowLeft className="w-5 h-5" />
-            </button>
-            {icon}
-            <span className="font-semibold">{title}</span>
-          </div>
-        </nav>
-        <div className="max-w-3xl mx-auto px-4 py-12">
+      <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
+        <div className="pt-20 pb-12">
           {resultView || (
-            <div className="text-center bg-white rounded-2xl p-12 shadow-sm border border-gray-100">
-              <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-4" />
-              <h2 className="text-2xl font-bold mb-2">测评已完成</h2>
-              <p className="text-gray-500">感谢你的参与，结果已保存</p>
+            <div className="max-w-sm mx-auto px-5 text-center" style={{ animation: 'fadeSlideUp 0.5s ease-out' }}>
+              <div className="p-8" style={{ background: '#FFFFFF', border: '1px solid #E5E0D8' }}>
+                <h2 className="text-lg font-bold mb-2" style={{ fontFamily: "'Noto Serif SC', serif", color: '#2C2C2C' }}>测评已完成</h2>
+                <p className="text-sm" style={{ color: '#8C8C8C' }}>感谢你的参与，结果已保存</p>
+              </div>
             </div>
           )}
         </div>
@@ -93,75 +108,105 @@ export default function Questionnaire({
     );
   }
 
+  // ---------- 首页 ----------
   if (step === 'intro') {
     return (
-      <div className="min-h-screen bg-gray-50/50 flex items-center justify-center p-4">
-        <div className="max-w-lg w-full text-center">
-          <div className={`w-20 h-20 rounded-2xl ${color} flex items-center justify-center mx-auto mb-6`}>
+      <div className="min-h-screen flex items-center justify-center p-6" style={{ background: '#FAFAF8' }}>
+        <div className="max-w-sm w-full text-center">
+          {icon && <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center" style={{ background: theme.primaryLight }}>
             {icon}
-          </div>
-          <h1 className="text-2xl font-bold mb-4">{title}</h1>
-          <p className="text-gray-500 mb-2">共 {questions.length} 题</p>
-          <p className="text-gray-400 text-sm mb-8">请根据你的真实想法回答，没有对错之分</p>
-          <button
-            onClick={() => setStep('quiz')}
-            className="bg-indigo-600 text-white px-8 py-3 rounded-xl font-medium hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200"
-          >
+          </div>}
+          <h1 className="text-2xl font-bold mb-2" style={{ fontFamily: "'Noto Serif SC', serif", color: '#2C2C2C' }}>{title}</h1>
+          <p className="text-sm mb-1" style={{ color: '#8C8C8C' }}>共 {questions.length} 题 · 大约 3-5 分钟</p>
+          <p className="text-sm mb-10" style={{ color: '#8C8C8C' }}>请根据你的真实情况选择</p>
+          <button onClick={() => setStep('quiz')}
+            className="w-full py-4 text-sm tracking-[2px] text-white transition-all hover:opacity-80"
+            style={{ background: theme.primary }}>
             开始测评
           </button>
+          <p className="mt-6 text-xs tracking-[2px]" style={{ color: '#8C8C8C' }}>
+            <Link href="/dashboard" style={{ textDecoration: 'underline', textUnderlineOffset: 3 }}>返回仪表盘</Link>
+          </p>
         </div>
       </div>
     );
   }
 
+  // ---------- 答题 ----------
   const q = questions[currentQ];
-  const progress = ((currentQ + 1) / questions.length) * 100;
+  const totalSteps = questions.length;
+  // 进度 = 已完成 / 总步数（当前算进行中）
+  const progressFraction = (currentQ) / totalSteps;
 
   return (
-    <div className="min-h-screen bg-gray-50/50">
-      <nav className="bg-white border-b border-gray-100 sticky top-0 z-50">
-        <div className="max-w-3xl mx-auto px-4 h-16 flex items-center gap-4">
-          <button onClick={onBack} className="text-gray-400 hover:text-gray-600">
-            <ArrowLeft className="w-5 h-5" />
+    <div className="min-h-screen" style={{ background: '#FFFAF6' }}>
+      {/* 顶部导航 */}
+      <nav className="fixed top-0 left-0 right-0 z-50" style={{ background: '#FFFAF6' }}>
+        <div className="max-w-lg mx-auto px-5 h-14 flex items-center justify-between">
+          <button onClick={onBack}
+            className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-black/5 transition-colors">
+            <ArrowLeft className="w-5 h-5" style={{ color: '#2D2424' }} />
           </button>
-          {icon}
-          <span className="font-semibold">{title}</span>
-          <span className="ml-auto text-sm text-gray-400">{currentQ + 1}/{questions.length}</span>
+
+          {/* 步骤点 */}
+          <div className="flex items-center gap-2">
+            {Array.from({ length: totalSteps }).map((_, i) => (
+              <div key={i}
+                className="h-1 transition-all duration-500"
+                style={{
+                  width: i <= currentQ ? '24px' : '6px',
+                  background: i <= currentQ ? theme.primary : '#E5E0D8',
+                }} />
+            ))}
+          </div>
+
+          <div className="w-9" />
         </div>
       </nav>
 
-      <div className="max-w-3xl mx-auto px-4 py-8">
-        {/* Progress bar */}
-        <div className="w-full bg-gray-200 rounded-full h-2 mb-8">
-          <div
-            className="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full transition-all duration-500"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
+      {/* 内容 */}
+      <div className="pt-20 pb-8 px-5" key={currentQ}>
+        <div className="max-w-sm w-full mx-auto" style={{ animation: 'fadeSlideUp 0.4s ease-out' }}>
+          {/* 题目标签 */}
+          <div className="text-center mb-3">
+            <span className="inline-block text-xs tracking-[2px]" style={{ color: theme.primary }}>
+              第 {currentQ + 1} 题
+            </span>
+          </div>
 
-        <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-          <div className="text-xs text-gray-400 mb-2">第 {currentQ + 1} 题</div>
-          <h2 className="text-xl font-semibold mb-6">{q.text}</h2>
+          {/* 题目文字 */}
+          <h2 className="text-lg font-bold text-center mb-8 leading-relaxed" style={{ fontFamily: "'Noto Serif SC', serif", color: '#2C2C2C' }}>
+            {q.text}
+          </h2>
 
-          {renderQuestion(q, currentQ, answers[currentQ], handleAnswer)}
+          {/* 选项卡片 */}
+          <div className="p-6" style={{
+            background: '#FFFFFF',
+            border: '1px solid #E5E0D8',
+          }}>
+            {renderQuestion(q, currentQ, answers[currentQ], handleAnswer)}
+          </div>
 
-          {error && <div className="text-red-500 text-sm mt-4">{error}</div>}
+          {/* 错误信息 */}
+          {error && (
+            <div className="mt-3 px-4 py-2.5 text-sm" style={{ background: '#F5F3EF', color: '#2C2C2C', borderLeft: '3px solid #B85C3A' }}>
+              {error}
+            </div>
+          )}
 
-          <div className="flex justify-between mt-8">
-            <button
-              onClick={prevQuestion}
-              disabled={currentQ === 0}
-              className="px-5 py-2.5 border border-gray-200 rounded-xl text-sm hover:bg-gray-50 disabled:opacity-30 transition-all flex items-center gap-1"
-            >
-              <ArrowLeft className="w-4 h-4" /> 上一题
-            </button>
-            <button
-              onClick={nextQuestion}
-              disabled={submitting}
-              className="px-6 py-2.5 bg-indigo-600 text-white rounded-xl text-sm font-medium hover:bg-indigo-700 disabled:opacity-50 transition-all flex items-center gap-1 shadow-lg shadow-indigo-200"
-            >
-              {currentQ < questions.length - 1 ? '下一题' : submitting ? '提交中...' : '完成'}
-              {currentQ < questions.length - 1 && <ArrowRight className="w-4 h-4" />}
+          {/* 按钮区 */}
+          <div className="mt-6 flex gap-3">
+            {currentQ > 0 && (
+              <button onClick={prevQuestion}
+                className="px-5 py-3 text-xs tracking-[1px] transition-all"
+                style={{ color: '#8C8C8C', border: '1px solid #E5E0D8', background: '#FFFFFF' }}>
+                ← 上一题
+              </button>
+            )}
+            <button onClick={nextQuestion} disabled={submitting}
+              className="flex-1 py-3 text-xs tracking-[2px] text-white transition-all hover:opacity-80 disabled:opacity-40"
+              style={{ background: theme.primary }}>
+              {currentQ < questions.length - 1 ? '继续 →' : submitting ? '提交中...' : '完成'}
             </button>
           </div>
         </div>

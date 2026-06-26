@@ -54,7 +54,7 @@ export default function SharedReportPage({ params }: { params: Promise<{ token: 
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-indigo-500" />
             <span className="font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              天赋星鉴
+              镜相
             </span>
           </div>
           <Link href="/auth/register" className="text-indigo-600 hover:text-indigo-700 text-sm font-medium">
@@ -165,7 +165,7 @@ export default function SharedReportPage({ params }: { params: Promise<{ token: 
         </div>
 
         <div className="text-center mt-6 text-xs text-gray-400">
-          <p>天赋星鉴 · 本报告仅供参考，请理性看待分析结果</p>
+          <p>镜相 · 本报告仅供参考，请理性看待分析结果</p>
         </div>
       </div>
     </div>

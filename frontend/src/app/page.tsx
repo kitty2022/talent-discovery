@@ -2,7 +2,38 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Sparkles, Compass, Brain, Star, ArrowRight, BookOpen, Moon, BarChart3 } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+
+/* ========================================================
+   Auwa.life 风格复刻 — 侘寂 · 克制 · 留白
+   底色: #FAFAF8  文字: #2C2C2C  点缀: #B85C3A
+   ======================================================== */
+
+const S = {
+  bg: '#FAFAF8',
+  text: '#2C2C2C',
+  muted: '#8C8C8C',
+  accent: '#B85C3A',
+  border: '#E5E0D8',
+  lightBg: '#F5F3EF',
+};
+
+const MODULES = [
+  { num: '01', label: '先天解码', title: '性格分析', desc: '通过出生信息解读先天五行格局，了解性格底色',
+    icon: <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#2C2C2C" strokeWidth="1.8"><circle cx="16" cy="12" r="5"/><path d="M6 28c0-6 4.5-10 10-10s10 4 10 10"/><circle cx="12.5" cy="10" r="1.5" fill="#2C2C2C"/><circle cx="19.5" cy="10" r="1.5" fill="#2C2C2C"/><path d="M14 13l2-1 2 1"/></svg> },
+  { num: '02', label: '人格认知', title: 'MBTI 人格', desc: '经典 Myers-Briggs 类型指标，认清思维偏好',
+    icon: <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#2C2C2C" strokeWidth="1.8"><path d="M16 4c-4 0-6 2-6 5s2 4 6 4 6-1 6-4-2-5-6-5z"/><path d="M6 20c0-4 4-6 10-6s10 2 10 6"/><path d="M14 26h4l-2-6-2 6z"/></svg> },
+  { num: '03', label: '职业探索', title: '霍兰德测评', desc: '15道行为选择题，基于真实行为评估职业倾向',
+    icon: <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#2C2C2C" strokeWidth="1.8"><circle cx="16" cy="16" r="10"/><circle cx="16" cy="16" r="4"/><circle cx="16" cy="16" r="1.5" fill="#2C2C2C"/><line x1="16" y1="6" x2="16" y2="10"/><line x1="16" y1="22" x2="16" y2="26"/><line x1="6" y1="16" x2="10" y2="16"/><line x1="22" y1="16" x2="26" y2="16"/></svg> },
+  { num: '04', label: '天赋扫描', title: '天赋发现', desc: '18道行为题，从创造力到商业力发现核心优势',
+    icon: <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#2C2C2C" strokeWidth="1.8"><path d="M16 4l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-6z"/></svg> },
+];
+
+const STEPS = [
+  { num: '❶', title: '输入出生信息', desc: '完成性格分析' },
+  { num: '❷', title: '完成行为测评', desc: 'MBTI、霍兰德、天赋发现' },
+  { num: '❸', title: '生成综合报告', desc: '获得天赋与职业发展建议' },
+];
 
 export default function HomePage() {
   const [mounted, setMounted] = useState(false);
@@ -15,169 +46,137 @@ export default function HomePage() {
   if (!mounted) return null;
 
   return (
-    <div className="min-h-screen">
-      {/* 导航栏 */}
-      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
-        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <Sparkles className="w-6 h-6 text-indigo-500" />
-            <span className="text-lg font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              天赋星鉴
-            </span>
+    <div style={{ background: S.bg, minHeight: '100vh', color: S.text }}>
+
+      {/* ===== 导航 ===== */}
+      <nav className="fixed top-0 left-0 right-0 z-50" style={{ background: 'rgba(250,250,248,0.9)', backdropFilter: 'blur(8px)' }}>
+        <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+          <Link href="/" style={{ fontFamily: "'Noto Serif SC', serif", fontSize: 20, fontWeight: 600, color: S.text, letterSpacing: 2 }}>
+            镜相
           </Link>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-8">
             {loggedIn ? (
-              <Link
-                href="/dashboard"
-                className="bg-indigo-600 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200"
-              >
+              <Link href="/dashboard"
+                style={{ fontSize: 13, color: S.text, letterSpacing: 1, borderBottom: '1px solid transparent', ':hover': { borderColor: S.text } }}>
                 进入仪表盘
               </Link>
             ) : (
-              <div className="flex items-center gap-4">
-                <Link href="/auth/login" className="text-gray-600 hover:text-gray-900 transition-colors">
-                  登录
+              <>
+                <Link href="/auth/login" style={{ fontSize: 13, color: S.muted, letterSpacing: 1 }}>登录</Link>
+                <Link href="/auth/register"
+                  style={{ fontSize: 13, color: '#fff', letterSpacing: 1, background: S.text, padding: '10px 24px', borderRadius: 0 }}>
+                  开始探索
                 </Link>
-                <Link
-                  href="/auth/register"
-                  className="bg-indigo-600 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200"
-                >
-                  开始测评
-                </Link>
-              </div>
+              </>
             )}
           </div>
         </div>
       </nav>
 
-      {/* Hero 区 */}
-      <section className="pt-32 pb-20 px-4 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-indigo-50/50 via-transparent to-transparent pointer-events-none" />
-        <div className="max-w-4xl mx-auto relative">
-          <div className="inline-flex items-center gap-2 bg-indigo-100 text-indigo-700 px-4 py-1.5 rounded-full text-sm mb-6">
-            <Sparkles className="w-4 h-4" />
-            先天特质 × 行为科学 × 职业发展
-          </div>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            发现你的
-            <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">
-              天赋优势
-            </span>
+      {/* ===== Hero ===== */}
+      <section className="min-h-screen flex items-center justify-center px-6 text-center relative">
+        {/* 装饰大字符 */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[200px] md:text-[320px] font-bold select-none pointer-events-none opacity-[0.03]" style={{ fontFamily: "'Noto Serif SC', serif", color: S.text }}>
+          天赋
+        </div>
+        <div className="max-w-2xl relative">
+          <p className="text-xs mb-8 tracking-[4px] uppercase" style={{ color: S.muted }}>先天特质 × 行为科学 × 职业发展</p>
+          <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-8" style={{ fontFamily: "'Noto Serif SC', serif", letterSpacing: 2, lineHeight: 1.6 }}>
+            发现你的天赋优势
           </h1>
-          <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            性格分析 · MBTI · 霍兰德 · 天赋发现
-            <br />
-            四大测评，从先天特质到职业方向，全面解码你的天赋优势
+          <p className="text-base leading-relaxed mb-12" style={{ color: S.muted, maxWidth: 420, margin: '0 auto' }}>
+            从先天特质到职业方向，四大测评帮你找到真正擅长的领域
           </p>
-          <div className="flex items-center justify-center gap-4">
-            {loggedIn ? (
-              <Link
-                href="/dashboard"
-                className="bg-indigo-600 text-white px-8 py-3.5 rounded-full text-lg font-medium hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-200 flex items-center gap-2"
-              >
-                进入仪表盘 <ArrowRight className="w-5 h-5" />
+          <div className="mt-6">
+          {loggedIn ? (
+            <Link href="/dashboard"
+              className="inline-flex items-center gap-2 text-sm tracking-[2px] py-3 px-8 transition-opacity hover:opacity-70"
+              style={{ color: '#fff', background: S.text }}>
+              进入仪表盘 <ArrowRight className="w-4 h-4" />
+            </Link>
+          ) : (
+            <>
+              <Link href="/auth/register"
+                className="inline-flex items-center gap-2 text-sm tracking-[2px] py-3 px-8 transition-opacity hover:opacity-70"
+                style={{ color: '#fff', background: S.text }}>
+                开始探索天赋 <ArrowRight className="w-4 h-4" />
               </Link>
-            ) : (
-              <div className="flex items-center gap-4">
-                <Link
-                  href="/auth/register"
-                  className="bg-indigo-600 text-white px-8 py-3.5 rounded-full text-lg font-medium hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-200 flex items-center gap-2"
-                >
-                  开始探索天赋 <ArrowRight className="w-5 h-5" />
-                </Link>
-                <Link
-                  href="/auth/login"
-                  className="bg-white text-gray-700 px-8 py-3.5 rounded-full text-lg font-medium border border-gray-200 hover:border-indigo-300 transition-all"
-                >
-                  已有报告
-                </Link>
-              </div>
-            )}
-          </div>
+            </>
+          )}
         </div>
+      </div>
       </section>
 
-      {/* 特色模块 */}
-      <section className="py-20 px-4">
+      {/* ===== 四大测评 ===== */}
+      <section className="py-32 px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-4">四大测评维度</h2>
-          <p className="text-gray-500 text-center mb-12 max-w-xl mx-auto">
-            先天命理揭示底层特质，行为科学识别真实能力，全方位规划职业发展
-          </p>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                icon: <Moon className="w-8 h-8" />,
-                title: '性格分析',
-                desc: '通过出生年月日时排盘，分析五行平衡、十神格局，解读先天性格特质',
-                color: 'bg-amber-50 text-amber-600',
-                bg: 'bg-amber-50/50',
-              },
-              {
-                icon: <Brain className="w-8 h-8" />,
-                title: 'MBTI 人格',
-                desc: '经典 Myers-Briggs 类型指标，认清你的思维偏好与行为模式',
-                color: 'bg-blue-50 text-blue-600',
-                bg: 'bg-blue-50/50',
-              },
-              {
-                icon: <BarChart3 className="w-8 h-8" />,
-                title: '霍兰德测评',
-                desc: '60道行为选择题，基于真实行为而非主观兴趣，评估六维职业倾向',
-                color: 'bg-rose-50 text-rose-600',
-                bg: 'bg-rose-50/50',
-              },
-              {
-                icon: <Star className="w-8 h-8" />,
-                title: '天赋发现',
-                desc: '18道行为选择题，从创造力到商业力，发现你的核心天赋优势',
-                color: 'bg-indigo-50 text-indigo-600',
-                bg: 'bg-indigo-50/50',
-              },
-            ].map((item, i) => (
-              <div
-                key={i}
-                className={`${item.bg} rounded-2xl p-6 hover:shadow-lg transition-all border border-gray-100`}
-              >
-                <div className={`w-14 h-14 rounded-xl ${item.color} flex items-center justify-center mb-4`}>
-                  {item.icon}
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
+          <div className="mb-20">
+            <p className="text-xs tracking-[4px] mb-4" style={{ color: S.accent }}>01 / 04</p>
+            <h2 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: "'Noto Serif SC', serif" }}>四大测评维度</h2>
+            <p className="text-sm mt-4" style={{ color: S.muted }}>先天命理 + 行为科学，全方位解码你的天赋</p>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-0.5">
+            {MODULES.map((m, i) => (
+              <div key={i} className="p-10 transition-all duration-500 hover:opacity-90" style={{ background: S.lightBg }}>
+                <div className="mb-5" style={{ color: S.text }}>{m.icon}</div>
+                <p className="text-xs tracking-[3px] mb-2" style={{ color: S.muted }}>{m.num} / {m.label}</p>
+                <h3 className="text-base font-semibold mb-2" style={{ fontFamily: "'Noto Serif SC', serif" }}>{m.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: S.muted }}>{m.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 流程说明 */}
-      <section className="py-20 px-4 bg-white/50">
+      {/* ===== 流程 ===== */}
+      <section className="py-32 px-6" style={{ background: '#FFFFFF' }}>
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-4">四步发现你的天赋</h2>
-          <p className="text-gray-500 text-center mb-12">完成测评，获得你的个人天赋与职业发展报告</p>
-          <div className="grid md:grid-cols-4 gap-8">
-            {[
-              { step: '01', title: '性格分析', desc: '输入出生信息，了解先天特质' },
-              { step: '02', title: '能力测评', desc: '参与 MBTI、霍兰德等行为测评' },
-              { step: '03', title: '天赋发现', desc: '从八维天赋中找到你的核心优势' },
-              { step: '04', title: '获取报告', desc: '生成个人天赋与职业发展报告' },
-            ].map((item, i) => (
+          <p className="text-xs tracking-[4px] mb-4 text-center" style={{ color: S.accent }}>HOW IT WORKS</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-20" style={{ fontFamily: "'Noto Serif SC', serif" }}>三步获得你的报告</h2>
+
+          <div className="grid md:grid-cols-3 gap-16">
+            {STEPS.map((s, i) => (
               <div key={i} className="text-center">
-                <div className="w-16 h-16 rounded-full bg-indigo-600 text-white text-xl font-bold flex items-center justify-center mx-auto mb-4 shadow-lg shadow-indigo-200">
-                  {item.step}
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                <p className="text-gray-500 text-sm">{item.desc}</p>
+                <div className="text-4xl mb-6">{s.num}</div>
+                <h3 className="text-base font-semibold mb-2" style={{ fontFamily: "'Noto Serif SC', serif" }}>{s.title}</h3>
+                <p className="text-sm" style={{ color: S.muted }}>{s.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-8 px-4 text-center text-gray-400 text-sm border-t border-gray-100">
-        <p>天赋星鉴 · 发现你的天赋优势</p>
-        <p className="mt-1">基于行为科学、优势理论与职业发展模型，仅供参考</p>
+      {/* ===== CTA ===== */}
+      <section className="py-32 px-6 text-center">
+        <div className="max-w-xl mx-auto">
+          <p className="text-xs tracking-[4px] mb-4" style={{ color: S.accent }}>BEGIN YOUR JOURNEY</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ fontFamily: "'Noto Serif SC', serif" }}>
+            准备好发现你的天赋了吗？
+          </h2>
+          <p className="text-sm mb-10" style={{ color: S.muted }}>
+            完成测评，获得你的专属天赋与职业发展报告
+          </p>
+          {loggedIn ? (
+            <Link href="/dashboard"
+              className="inline-flex items-center gap-2 text-sm tracking-[2px] py-3 px-8 transition-opacity hover:opacity-70"
+              style={{ color: '#fff', background: S.text }}>
+              进入仪表盘 <ArrowRight className="w-4 h-4" />
+            </Link>
+          ) : (
+            <Link href="/auth/register"
+              className="inline-flex items-center gap-2 text-sm tracking-[2px] py-3 px-8 transition-opacity hover:opacity-70"
+              style={{ color: '#fff', background: S.text }}>
+              开始探索 <ArrowRight className="w-4 h-4" />
+            </Link>
+          )}
+        </div>
+      </section>
+
+      {/* ===== Footer ===== */}
+      <footer className="py-12 px-6 text-center border-t" style={{ borderColor: S.border }}>
+        <p className="text-xs tracking-[3px] mb-1" style={{ color: S.text, fontFamily: "'Noto Serif SC', serif" }}>镜相</p>
+        <p className="text-xs" style={{ color: S.muted }}>基于行为科学、优势理论与职业发展模型</p>
       </footer>
     </div>
   );

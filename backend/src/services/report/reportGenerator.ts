@@ -1,5 +1,4 @@
-/**
- * 🎯 个人天赋与职业发展报告
+/** 🎯 个人天赋与职业发展报告
  *
  * 设计理念：
  *  先结论，后解释
@@ -54,8 +53,7 @@ interface CapabilityScore {
   developTip: string;
 }
 
-/**
- * 从所有测评数据中综合计算六维能力评分
+/** 从所有测评数据中综合计算六维能力评分
  */
 function calculateCapabilities(bazi: any, mbti: any, holland: any, tianzhi: any, talent?: any): CapabilityScore[] {
   const scores: Record<string, number> = {
@@ -336,7 +334,7 @@ function generateFormationReason(bazi: any, mbti: any, holland: any): string[] {
       '庚': '你果断刚毅执行力强', '辛': '你追求完美审美出色',
       '壬': '你智慧豁达善统筹', '癸': '你聪敏内敛富于灵感',
     };
-    reasons.push(`🔸 **先天特质**：${stemNature[dayStem] || '你有独特的先天特质'}。这构成了你能力的基础底色。`);
+    reasons.push(`🔸 先天特质：${stemNature[dayStem] || '你有独特的先天特质'}。这构成了你能力的基础底色。`);
   }
 
   // 从人格模式角度
@@ -352,17 +350,17 @@ function generateFormationReason(bazi: any, mbti: any, holland: any): string[] {
       'ESTJ': '你注重效率、善于组织管理', 'ESFJ': '你热心助人、注重团队氛围',
       'ESTP': '你行动力强、善于把握机会', 'ESFP': '你活力四射、享受当下',
     };
-    reasons.push(`🔸 **人格模式**：作为${type}型，${typePattern[type] || '你有独特的思维和行为模式'}。这影响你处理信息和做决策的方式。`);
+    reasons.push(`🔸 人格模式：作为${type}型，${typePattern[type] || '你有独特的思维和行为模式'}。这影响你处理信息和做决策的方式。`);
   }
 
   // 从兴趣角度
   if (holland?.type) {
     const type = holland.type;
-    reasons.push(`🔸 **兴趣倾向**：你的霍兰德代码为${type}型，反映出你在${type.includes('A') ? '创意表达' : ''}${type.includes('I') ? '深度研究' : ''}${type.includes('S') ? '人际协作' : ''}${type.includes('E') ? '组织影响' : ''}${type.includes('R') ? '动手实践' : ''}${type.includes('C') ? '规范执行' : ''}方面有天然的偏好和动力。`);
+    reasons.push(`🔸 兴趣倾向：你的霍兰德代码为${type}型，反映出你在${type.includes('A') ? '创意表达' : ''}${type.includes('I') ? '深度研究' : ''}${type.includes('S') ? '人际协作' : ''}${type.includes('E') ? '组织影响' : ''}${type.includes('R') ? '动手实践' : ''}${type.includes('C') ? '规范执行' : ''}方面有天然的偏好和动力。`);
   }
 
   // 合成段落
-  reasons.push(`🔸 **综合影响**：先天特质给你底层的倾向，人格模式塑造了你处理信息的方式，兴趣倾向则指引你愿意投入的方向。三者共同作用，形成了你当前的能力优势和独特的工作风格。`);
+  reasons.push(`🔸 综合影响：先天特质给你底层的倾向，人格模式塑造了你处理信息的方式，兴趣倾向则指引你愿意投入的方向。三者共同作用，形成了你当前的能力优势和独特的工作风格。`);
 
   return reasons;
 }
@@ -374,15 +372,18 @@ function generatePart1(caps: CapabilityScore[], bazi: any, mbti: any, holland: a
   const conclusion = generateCoreConclusion(caps, bazi, mbti, holland);
 
   let content = '';
-  content += `**✨ 一句总结**\n\n${conclusion.oneLiner}\n\n`;
-  content += `**🎯 核心天赋**\n`;
-  conclusion.coreTalents.forEach(t => { content += `  - ${t}\n`; });
+  content += `━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+  content += `✨ 一句总结\n${conclusion.oneLiner}\n\n`;
+  content += `━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+  content += `🎯 核心天赋\n`;
+  conclusion.coreTalents.forEach(t => { content += `▸ ${t}\n`; });
   content += '\n';
-  content += `**💪 优势能力 TOP 3**\n`;
-  conclusion.topAbilities.forEach(a => { content += `  - ${a}\n`; });
+  content += `💪 优势能力 TOP 3\n`;
+  conclusion.topAbilities.forEach(a => { content += `▸ ${a}\n`; });
   content += '\n';
-  content += `**🧭 适合发展方向**\n\n${conclusion.direction}\n\n`;
-  content += `**📈 一句成长建议**\n\n${conclusion.growthAdvice}`;
+  content += `🧭 适合发展方向\n${conclusion.direction}\n\n`;
+  content += `━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+  content += `📈 成长建议\n${conclusion.growthAdvice}`;
 
   return {
     title: '核心结论',
@@ -410,16 +411,16 @@ function generatePart3(caps: CapabilityScore[]): ReportSection {
   const weaknesses = caps.filter(c => c.level === '弱势能力');
 
   if (strengths.length > 0) {
-    content += '**✅ 优势能力**（你可以重点依靠的能力）\n\n';
+    content += '▎优势能力（你可以重点依靠的能力）\n\n';
     strengths.forEach(c => {
-      content += `${c.icon} **${c.name}**（${c.score}分）\n`;
+      content += `${c.icon} ${c.name}（${c.score}分）\n`;
       content += `  ${c.description}\n`;
       content += `  💡 *培养建议：${c.developTip}*\n\n`;
     });
   }
 
   if (normals.length > 0) {
-    content += '**📊 普通能力**（有发展空间，可以继续提升）\n\n';
+    content += '📊 普通能力（有发展空间，可以继续提升）\n\n';
     normals.forEach(c => {
       content += `  ${c.icon} ${c.name}（${c.score}分）\n`;
     });
@@ -427,7 +428,7 @@ function generatePart3(caps: CapabilityScore[]): ReportSection {
   }
 
   if (weaknesses.length > 0) {
-    content += '**🌱 可提升能力**（现阶段相对较弱，值得关注）\n\n';
+    content += '🌱 可提升能力（现阶段相对较弱，值得关注）\n\n';
     weaknesses.forEach(c => {
       content += `  ${c.icon} ${c.name}（${c.score}分）\n`;
     });
@@ -457,19 +458,19 @@ function generatePart4(bazi: any): ReportSection {
 
   let content = '以下建议基于你的能力特点和先天倾向，帮助你找到更适合的发展方向：\n\n';
 
-  content += '**✅ 适合的工作类型**\n';
+  content += '✅ 适合的工作类型\n';
   analysis.direction.workTypes.forEach((t: string) => { content += `  - ${t}\n`; });
   content += '\n';
 
-  content += '**✅ 适合的团队环境**\n';
+  content += '✅ 适合的团队环境\n';
   analysis.direction.workEnvironments.forEach((e: string) => { content += `  - ${e}\n`; });
   content += '\n';
 
-  content += '**✅ 适合的成长方式**\n';
+  content += '✅ 适合的成长方式\n';
   analysis.direction.developmentPaths.forEach((p: string) => { content += `  - ${p}\n`; });
   content += '\n';
 
-  content += '**⏱️ 适合的工作节奏**\n';
+  content += '⏱️ 适合的工作节奏\n';
   const primaryElement = Object.entries(bazi.fiveElements || {}).sort((a: any, b: any) => b[1] - a[1])[0]?.[0] || '木';
   const rhythmMap: Record<string, string[]> = {
     '木': ['弹性工作制，自主安排时间', '项目制而非固定工时', '允许深度工作和自由探索的节奏'],
@@ -481,7 +482,7 @@ function generatePart4(bazi: any): ReportSection {
   (rhythmMap[primaryElement] || rhythmMap['木']).forEach((r: string) => { content += `  - ${r}\n`; });
   content += '\n';
 
-  content += '**❌ 不太适合的环境**\n';
+  content += '❌ 不太适合的环境\n';
   analysis.direction.avoidWorkTypes.forEach((a: string) => { content += `  - ${a}\n`; });
 
   return { title: '职业发展建议', content, type: 'text' };
@@ -493,12 +494,12 @@ function generatePart6(caps: CapabilityScore[], bazi: any): ReportSection {
   let content = '了解潜在短板不是为了否定自己，而是为了更有针对性地成长：\n\n';
 
   risks.forEach(r => {
-    content += `**🔸 潜在短板：${r.weakness}**\n\n`;
+    content += `🔸 潜在短板：${r.weakness}\n\n`;
     content += `⚠️ 容易陷入的问题：${r.risk}\n\n`;
     content += `💡 如何优化：${r.optimize}\n\n`;
   });
 
-  content += '🌟 **成长心态**\n\n能力不是固定的，只要有意识地去练习和提升，每个人都可以在薄弱环节取得进步。关键是正视它，而不是回避它。';
+  content += '🌟 成长心态\n\n能力不是固定的，只要有意识地去练习和提升，每个人都可以在薄弱环节取得进步。关键是正视它，而不是回避它。';
   return { title: '风险提醒', content, type: 'text' };
 }
 
@@ -510,7 +511,7 @@ function generatePart7(bazi: any, mbti: any, holland: any, tianzhi: any, talent?
   if (bazi) {
     const wxEntries = Object.entries(bazi.fiveElements || {}) as [string, number][];
     const sorted = [...wxEntries].sort((a, b) => b[1] - a[1]);
-    let content = '**先天特质参考**\n\n';
+    let content = '先天特质参考\n\n';
     content += '以下是根据你的出生信息分析得出的先天特质倾向，已转化为行为语言供参考：\n\n';
 
     const wxBehaviorMap: Record<string, string> = {
@@ -525,7 +526,7 @@ function generatePart7(bazi: any, mbti: any, holland: any, tianzhi: any, talent?
         content += `  ${wx}（${count}分）${wxBehaviorMap[wx] || ''}\n`;
       }
     });
-    content += `\n**日主**：${bazi.dayStem}  你的核心特质偏向「${sorted[0][0]}性」。\n`;
+    content += `\n日主：${bazi.dayStem}  你的核心特质偏向「${sorted[0][0]}性」。\n`;
     sections.push({ title: '数据依据 · 先天特质', content, type: 'text', data: bazi.fiveElements });
   }
 
@@ -537,7 +538,7 @@ function generatePart7(bazi: any, mbti: any, holland: any, tianzhi: any, talent?
       tf: mbti.dimensions.tf >= 0 ? '理性 T' : '感性 F',
       jp: mbti.dimensions.jp >= 0 ? '判断 J' : '感知 P',
     };
-    let content = `**MBTI 类型**：${mbti.type} 型\n\n`;
+    let content = `MBTI 类型：${mbti.type} 型\n\n`;
     content += `维度倾向：\n`;
     content += `  - ${dimLabels.ei}（${Math.abs(mbti.dimensions.ei)}%）\n`;
     content += `  - ${dimLabels.sn}（${Math.abs(mbti.dimensions.sn)}%）\n`;
@@ -550,7 +551,7 @@ function generatePart7(bazi: any, mbti: any, holland: any, tianzhi: any, talent?
   // 霍兰德
   if (holland) {
     const sortedDims = Object.entries(holland.dimensions).sort((a: any, b: any) => b[1] - a[1]);
-    let content = `**霍兰德代码**：${holland.type} 型\n\n`;
+    let content = `霍兰德代码：${holland.type} 型\n\n`;
     content += `六维得分（满分30分）：\n`;
     sortedDims.forEach(([d, s]: any) => { content += `  - ${d} 型：${s} 分\n`; });
     sections.push({ title: '数据依据 · 霍兰德', content, type: 'text', data: holland.dimensions });
@@ -558,7 +559,7 @@ function generatePart7(bazi: any, mbti: any, holland: any, tianzhi: any, talent?
 
   // 天职
   if (tianzhi) {
-    let content = '**天职测评摘要**\n\n';
+    let content = '天职测评摘要\n\n';
     content += tianzhi.recommendation || '完成测评后获取详细解读。';
     sections.push({ title: '数据依据 · 天职', content, type: 'text' });
   }
@@ -571,8 +572,8 @@ function generatePart7(bazi: any, mbti: any, holland: any, tianzhi: any, talent?
       execution: '执行力', leadership: '领导力', business: '商业力',
       service: '服务力', growth: '成长力',
     };
-    let content = `**核心天赋**：${talent.topTalent || ''}\n\n`;
-    content += '**八维天赋得分**\n\n';
+    let content = `核心天赋：${talent.topTalent || ''}\n\n`;
+    content += '八维天赋得分\n\n';
     sorted.forEach(([key, val]: any) => {
       content += `  - ${dimNames[key] || key}：${val}%\n`;
     });

@@ -3,11 +3,24 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { hollandAPI } from '@/lib/api';
-import Questionnaire from '@/components/Questionnaire';
-import { BarChart3, CheckCircle2 } from 'lucide-react';
+import Questionnaire, { ThemeConfig } from '@/components/Questionnaire';
+import { BarChart3 } from 'lucide-react';
 import Link from 'next/link';
 
-const COLORS = 'bg-rose-50 text-rose-600';
+const THEME: Partial<ThemeConfig> = {
+  primary: '#2C2C2C',
+  primaryLight: '#F5F3EF',
+  accent: '#2C2C2C',
+};
+
+const DIM_COLORS: Record<string, string> = {
+  R: '#5B7B8C', I: '#7CA5B8', A: '#C9A96E',
+  S: '#2C2C2C', E: '#2C2C2C', C: '#9A9A9A',
+};
+const DIM_LABELS: Record<string, string> = {
+  R: '执行型', I: '分析型', A: '创造型',
+  S: '共情型', E: '影响型', C: '结构型',
+};
 
 export default function HollandPage() {
   const router = useRouter();
@@ -39,132 +52,120 @@ export default function HollandPage() {
     setResult(res.data);
   };
 
-  const handleRetest = () => {
-    setResult(null);
-  };
-
-  const DIM_COLORS: Record<string, string> = {
-    R: '#10b981', I: '#3b82f6', A: '#f59e0b',
-    S: '#ec4899', E: '#8b5cf6', C: '#6b7280',
-  };
-  const DIM_LABELS: Record<string, string> = {
-    R: '执行型', I: '分析型', A: '创造型',
-    S: '共情型', E: '影响型', C: '结构型',
-  };
-  const DIM_BG: Record<string, string> = {
-    R: 'bg-emerald-50', I: 'bg-blue-50', A: 'bg-amber-50',
-    S: 'bg-pink-50', E: 'bg-purple-50', C: 'bg-gray-50',
-  };
-  const DIM_TEXT: Record<string, string> = {
-    R: 'text-emerald-700', I: 'text-blue-700', A: 'text-amber-700',
-    S: 'text-pink-700', E: 'text-purple-700', C: 'text-gray-700',
-  };
+  const handleRetest = () => { setResult(null); };
 
   if (loading) return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="animate-spin w-8 h-8 border-2 border-indigo-600 border-t-transparent rounded-full" />
+    <div className="min-h-screen flex items-center justify-center" style={{ background: '#FFFAF6' }}>
+      <div className="w-10 h-10 border-2 rounded-full animate-spin" style={{ borderColor: '#2C2C2C', borderTopColor: 'transparent' }} />
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-gray-50/50">
-      <Questionnaire
-        title="霍兰德职业测评"
-        icon={<BarChart3 className="w-5 h-5 text-rose-600" />}
-        color={COLORS}
-        questions={questions}
-        isCompleted={!!result}
-        resultView={result ? (
-          <div className="max-w-lg mx-auto">
-            {/* 结果头部 */}
-            <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 mb-6">
-              <div className="text-center mb-6">
-                <div className="w-20 h-20 rounded-full bg-rose-100 flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle2 className="w-10 h-10 text-rose-600" />
-                </div>
-                <h2 className="text-2xl font-bold mb-1">你的行为倾向代码</h2>
-                <div className="text-5xl font-bold text-rose-600 my-3 tracking-wider">{result.type}</div>
-                <p className="text-sm text-gray-500">
-                  得分最高的三个维度组合，反映了你的行为偏好
-                </p>
-              </div>
+    <Questionnaire
+      title="霍兰德职业测评"
+      icon={<BarChart3 className="w-10 h-10" style={{ color: '#D4876A' }} />}
+      theme={THEME}
+      questions={questions}
+      isCompleted={!!result}
+      resultView={result ? (
+        <div className="max-w-lg mx-auto px-5" style={{ animation: 'fadeSlideUp 0.5s ease-out' }}>
+          {/* 结果头部 */}
+          <div className="text-center mb-8">
+            <h2 className="text-xl font-bold" style={{ fontFamily: "'Noto Serif SC', serif", color: '#2C2C2C' }}>你的行为倾向代码</h2>
+            <p className="text-sm mt-1" style={{ color: '#8C8C8C' }}>得分最高的三个维度组合</p>
+          </div>
 
-              {/* 维度得分 */}
-              {result.dimensions && (
-                <div className="space-y-4 mb-6">
-                  {Object.entries(result.dimensions).map(([key, val]: any) => {
-                    const isTop = result.type.includes(key);
-                    return (
-                      <div key={key} className={`p-3 rounded-xl ${isTop ? DIM_BG[key] || 'bg-gray-50' : ''}`}>
-                        <div className="flex justify-between text-sm mb-1">
-                          <span className={`font-medium ${isTop ? DIM_TEXT[key] || '' : 'text-gray-700'}`}>
-                            {DIM_LABELS[key] || key}
-                            {isTop && ' ★'}
-                          </span>
-                          <span className="text-gray-500">{val}%</span>
-                        </div>
-                        <div className="w-full bg-gray-100 rounded-full h-3">
-                          <div
-                            className="h-3 rounded-full transition-all"
-                            style={{ width: `${val}%`, backgroundColor: DIM_COLORS[key] || '#666' }}
-                          />
-                        </div>
+          {/* 类型大卡 */}
+          <div className="p-8 mb-4 text-center" style={{ background: '#2C2C2C' }}>
+            <div className="text-5xl font-bold text-white tracking-[4px]">{result.type}</div>
+          </div>
+
+          {/* 维度得分 */}
+          {result.dimensions && (
+            <div className="p-6 mb-4" style={{ background: '#FFFFFF', border: '1px solid #E5E0D8' }}>
+              <h3 className="text-sm font-semibold mb-4" style={{ color: '#2C2C2C' }}>维度得分</h3>
+              <div className="space-y-3">
+                {Object.entries(result.dimensions).map(([key, val]: any) => {
+                  const isTop = result.type.includes(key);
+                  return (
+                    <div key={key}>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span className="font-medium" style={{ color: isTop ? '#2D2424' : '#8A7A72' }}>
+                          {DIM_LABELS[key] || key} {isTop && '★'}
+                        </span>
+                        <span style={{ color: '#8A7A72' }}>{val}%</span>
                       </div>
-                    );
-                  })}
-                </div>
-              )}
-
-              {/* 行为解读 */}
-              {result.description && (
-                <div className="bg-gradient-to-br from-rose-50 to-orange-50 rounded-xl p-5 border border-rose-200">
-                  <h3 className="font-semibold text-sm text-rose-800 mb-3">📋 你的行为偏好解读</h3>
-                  <div className="text-sm text-rose-900 leading-relaxed whitespace-pre-line">
-                    {result.description}
-                  </div>
-                </div>
-              )}
-
-              <div className="flex justify-center gap-4 mt-6">
-                <button onClick={handleRetest} className="text-gray-500 hover:text-gray-700 text-sm">
-                  重新测试
-                </button>
-                <Link href="/dashboard" className="text-indigo-600 hover:text-indigo-700 text-sm font-medium">
-                  返回仪表盘
-                </Link>
+                      <div className="w-full rounded-full h-2.5" style={{ background: '#F0EDEA' }}>
+                        <div className="h-2.5 rounded-full transition-all"
+                          style={{
+                            width: `${val}%`,
+                            background: DIM_COLORS[key] || '#2C2C2C',
+                          }} />
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
+          )}
+
+          {/* 解读 */}
+          {result.description && (
+            <div className="p-6 mb-6" style={{ background: '#F5F3EF' }}>
+              <h3 className="text-sm font-semibold mb-3" style={{ color: '#2C2C2C' }}>📋 你的行为偏好解读</h3>
+              <p className="text-sm leading-relaxed whitespace-pre-line" style={{ color: '#8C8C8C' }}>
+                {result.description}
+              </p>
+            </div>
+          )}
+
+          <div className="flex justify-center gap-4 pb-8">
+            <button onClick={handleRetest}
+              className="px-6 py-3 text-xs tracking-[1px] transition-all hover:opacity-60"
+              style={{ background: '#F5F3EF', color: '#2C2C2C' }}>
+              重新测试
+            </button>
+            <Link href="/dashboard"
+              className="px-6 py-3 text-xs tracking-[2px] text-white transition-all hover:opacity-80"
+              style={{ background: '#2C2C2C' }}>
+              返回仪表盘
+            </Link>
           </div>
-        ) : undefined}
-        onBack={() => router.push('/dashboard')}
-        onSubmit={handleSubmit}
-        renderQuestion={(q, _idx, answer, onAnswer) => (
-          <div className="space-y-3">
-            {q.options?.map((opt: any) => (
-              <button
-                key={opt.label}
+        </div>
+      ) : undefined}
+      onBack={() => router.push('/dashboard')}
+      onSubmit={handleSubmit}
+      renderQuestion={(q, _idx, answer, onAnswer) => (
+        <div className="space-y-3">
+          {q.options?.map((opt: any) => {
+            const isSelected = answer?.label === opt.label;
+            return (
+              <button key={opt.label}
                 onClick={() => onAnswer({ score: opt.score, label: opt.label })}
-                className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
-                  answer?.label === opt.label
-                    ? 'border-rose-500 bg-rose-50 shadow-md'
-                    : 'border-gray-100 bg-white hover:border-rose-200 hover:bg-rose-50/50'
-                }`}
-              >
+                className="w-full text-left p-4 transition-all duration-200"
+                style={{
+                  background: isSelected ? '#F5F3EF' : '#FFFFFF',
+                  border: '1px solid',
+                  borderColor: isSelected ? '#2C2C2C' : '#E5E0D8',
+                  transform: isSelected ? 'scale(1.01)' : 'scale(1)',
+                }}>
                 <div className="flex items-start gap-3">
-                  <span className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                    answer?.label === opt.label
-                      ? 'bg-rose-500 text-white'
-                      : 'bg-gray-100 text-gray-500'
-                  }`}>
+                  <span className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-sm font-bold transition-all"
+                    style={{
+                      background: isSelected ? '#2C2C2C' : '#F0EDEA',
+                      color: isSelected ? '#fff' : '#8C8C8C',
+                    }}>
                     {opt.label}
                   </span>
-                  <span className="text-gray-700 leading-relaxed pt-1">{opt.text}</span>
+                  <span className="text-sm leading-relaxed pt-1" style={{ color: isSelected ? '#2C2C2C' : '#8C8C8C' }}>
+                    {opt.text}
+                  </span>
                 </div>
               </button>
-            ))}
-          </div>
-        )}
-      />
-    </div>
+            );
+          })}
+        </div>
+      )}
+    />
   );
 }

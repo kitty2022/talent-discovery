@@ -1,5 +1,4 @@
-/**
- * 天赋发现测评计分器（原天职测评升级版）
+/** 天赋发现测评计分器（原天职测评升级版）
  *
  * 每题 A=3分, B=1分, C=0分
  * 每维度 2-3 题，结果归一化为百分比 0-100
@@ -95,17 +94,17 @@ export function calculateTianZhi(answers: TianZhiAnswer[]): TianZhiResult {
   // 生成推荐
   const desc = topThree.map((t) => {
     const key = Object.entries(DIM_NAMES).find(([, v]) => v === t.dimension)?.[0];
-    return `**${t.dimension}**（${t.score}%）\n${DIM_DESC[key || ''] || ''}`;
+    return `${t.dimension}（${t.score}%）\n${DIM_DESC[key || ''] || ''}`;
   }).join('\n\n');
 
   const direction = DIRECTION_MAP[topKey] || '';
   const risk = RISK_MAP[topKey] || '';
 
-  const recommendation = `**✨ 你的核心天赋：${topTalent}**\n\n` +
-    `**📊 最具优势的三个天赋维度**\n\n${desc}\n\n` +
-    `**🧭 发展方向**\n${direction}\n\n` +
-    `**⚠️ 成长提醒**\n${risk}\n\n` +
-    `💡 **使用建议**：优先在发挥核心天赋的领域选择发展方向，同时有意识地培养其他维度。天赋不是限制，而是你的加速器。`;
+  const recommendation = `✨ 你的核心天赋：${topTalent}\n\n` +
+    `📊 最具优势的三个天赋维度\n\n${desc}\n\n` +
+    `🧭 发展方向\n${direction}\n\n` +
+    `⚠️ 成长提醒\n${risk}\n\n` +
+    `💡 使用建议：优先在发挥核心天赋的领域选择发展方向，同时有意识地培养其他维度。天赋不是限制，而是你的加速器。`;
 
   return {
     dimensions,

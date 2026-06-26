@@ -191,4 +191,29 @@ router.post('/reset-password', async (req: AuthRequest, res: Response) => {
   }
 });
 
+// PUT /api/auth/nickname — 修改昵称
+router.put('/nickname', authMiddleware, async (req: AuthRequest, res: Response) => {
+  try {
+    const { nickname } = req.body;
+    if (!nickname || nickname.trim().length === 0) {
+      res.status(400).json({ error: '昵称不能为空' });
+      return;
+    }
+    if (nickname.length > 20) {
+      res.status(400).json({ error: '昵称最长20个字' });
+      return;
+    }
+
+    const user = await prisma.user.update({
+      where: { id: req.userId },
+      data: { nickname: nickname.trim() },
+    });
+
+    res.json({ nickname: user.nickname, message: '昵称已更新' });
+  } catch (error) {
+    console.error('修改昵称失败:', error);
+    res.status(500).json({ error: '修改昵称失败，请稍后重试' });
+  }
+});
+
 export default router;
